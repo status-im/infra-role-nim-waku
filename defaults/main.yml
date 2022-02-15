@@ -11,9 +11,9 @@ nim_waku_node_db_path: '{{ nim_waku_cont_vol }}/data'
 nim_waku_node_key: ~
 nim_waku_node_key_file_path: '{{ nim_waku_cont_vol }}/nodekey'
 
-# The swap protocol keeps track of the accounting state for each peer. 
-# Enabling this will display logs from the swap protocol.
-nim_waku_swap_protocol_enabled: true
+# Protocols
+nim_waku_protocols_available: ['relay', 'store', 'filter', 'swap', 'lightpush']
+nim_waku_protocols_enabled: ['relay', 'store', 'filter', 'swap', 'lightpush']
 
 # Available: error, warn, info, debug
 nim_waku_log_level: 'info'

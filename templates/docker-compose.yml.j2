@@ -35,16 +35,17 @@ services:
       retries: 3
     command: |
 {% if "v2" in nim_waku_cont_tag %}
-      --store=true
-      --relay=true
-      --filter=true
+{% for protocol in nim_waku_protocols_enabled|difference(nim_waku_protocols_available) %}
+      --{{ protocol }}=false
+{% endfor %}
+{% for protocol in nim_waku_protocols_enabled %}
+      --{{ protocol }}=true
+{% endfor %}
       --db-path=/data
       --rpc-admin=true
       --persist-peers=true
       --keep-alive=true
       --persist-messages=true
-      --lightpush=true
-      --swap={{ nim_waku_swap_protocol_enabled | lower }}
       --max-connections={{ nim_waku_p2p_max_connections }}
       --store-capacity={{ nim_waku_store_capacity }}
 {% if nim_waku_websocket_enabled %}
