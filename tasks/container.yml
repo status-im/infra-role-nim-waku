@@ -23,7 +23,6 @@
     group: docker
     mode: 0644
 
-# --compatibility flag required for mem/cpu limits
 - name: 'Create container: {{ nim_waku_cont_name }}'
   docker_compose:
     project_src: '{{ nim_waku_cont_vol }}'

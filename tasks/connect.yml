@@ -18,6 +18,11 @@
   set_fact:
     nim_waku_peers_enodes: '{{ nim_waku_peers | map(attribute="ServiceMeta.node_enode") | list }}'
 
+- name: Wait for RPC port to be available
+  wait_for:
+    port: '{{ nim_waku_rpc_tcp_port }}'
+    delay: 5
+
 - name: Call RPC to connect to fleet peers
   uri:
     url: 'http://localhost:{{ nim_waku_rpc_tcp_port }}/'
