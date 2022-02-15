@@ -28,10 +28,8 @@ services:
       - '{{ nim_waku_metrics_port }}:{{ nim_waku_metrics_port }}/tcp'
       - '{{ nim_waku_websock_port }}:{{ nim_waku_websock_port }}/tcp'
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "--header", "Content-type:application/json",
-        "--post-data", "{\"id\":1,\"jsonrpc\":\"2.0\",\"method\": \"get_waku_v2_debug_v1_info\",\"params\":[]}",
-        "http://127.0.0.1:{{ nim_waku_rpc_tcp_port }}"]
-      interval: 10s
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:{{ nim_waku_metrics_port }}/health"]
+      interval: 30s
       retries: 3
     command: |
 {% if "v2" in nim_waku_cont_tag %}
