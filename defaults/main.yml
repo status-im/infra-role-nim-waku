@@ -18,9 +18,6 @@ nim_waku_swap_protocol_enabled: true
 # Available: error, warn, info, debug
 nim_waku_log_level: 'info'
 
-# The eth fleet running status-go node should bootstrap from
-nim_waku_bootstrap_fleet: 'test'
-
 # esperimental discovery support
 nim_waku_discovery_enabled: false
 
