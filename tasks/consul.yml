@@ -36,12 +36,28 @@
         #    type: 'script'
         #    script: '{{ nim_waku_cont_vol }}/rpc.sh get_waku_v2_debug_v1_info'
 
+- name: Define Websocket service
+  when: nim_waku_websocket_enabled
+  set_fact:
+    consul_service_websocket:
+      - id: '{{ nim_waku_cont_name }}-websocket'
+        name: '{{ nim_waku_cont_name }}-websocket'
+        port: '{{ nim_waku_websock_port }}'
+        address: '{{ nim_waku_p2p_tcp_port }}'
+        tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websocket']
+        meta:
+          node_enode: '/dns4/{{ nim_waku_websocket_domain | mandatory }}/tcp/{{ nim_waku_websock_port }}/wss/p2p/{{ nim_waku_peer_id }}'
+        checks:
+          - name: '{{ nim_waku_cont_name }}-websocket-health'
+            type: 'script'
+            script: 'websocat -vk1E wss://localhost:{{ nim_waku_websock_port }}'
+
 - name: Define Websockify service
   when: nim_waku_websockify_enabled
   set_fact:
     consul_service_websockify:
-      - id: '{{ nim_waku_cont_name }}-websocket'
-        name: '{{ nim_waku_cont_name }}-websocket'
+      - id: '{{ nim_waku_cont_name }}-websockify'
+        name: '{{ nim_waku_cont_name }}-websockify'
         port: '{{ nim_waku_websockify_cont_port }}'
         address: '{{ nim_waku_p2p_tcp_port }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websocket']
@@ -51,6 +67,11 @@
           - name: '{{ nim_waku_cont_name }}-websocket-health'
             type: 'script'
             script: 'websocat -vk1E wss://localhost:{{ nim_waku_websockify_cont_port }}'
+
+- name: Add Websocket Consul service
+  when: nim_waku_websocket_enabled
+  set_fact:
+    consul_services: '{{ consul_services + consul_service_websocket }}'
 
 - name: Add Websockify Consul service
   when: nim_waku_websockify_enabled
