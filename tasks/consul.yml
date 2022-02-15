@@ -36,6 +36,10 @@
         #    type: 'script'
         #    script: '{{ nim_waku_cont_vol }}/rpc.sh get_waku_v2_debug_v1_info'
 
+- name: Define Websockify service
+  when: nim_waku_websockify_enabled
+  set_fact:
+    consul_service_websockify:
       - id: '{{ nim_waku_cont_name }}-websocket'
         name: '{{ nim_waku_cont_name }}-websocket'
         port: '{{ nim_waku_websockify_cont_port }}'
@@ -48,11 +52,10 @@
             type: 'script'
             script: 'websocat -vk1E wss://localhost:{{ nim_waku_websockify_cont_port }}'
 
-- name: Remove Websockify Consul service
+- name: Add Websockify Consul service
+  when: nim_waku_websockify_enabled
   set_fact:
-    consul_services: |
-      {{ consul_services | rejectattr('name', 'match', '.*-websocket$') | list }}
-  when: not nim_waku_websockify_enabled
+    consul_services: '{{ consul_services + consul_service_websockify }}'
 
 - name: 'Consul service definition - {{ nim_waku_cont_name }}'
   include_role: name=consul-service
