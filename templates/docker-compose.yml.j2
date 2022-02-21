@@ -32,7 +32,7 @@ services:
       interval: 30s
       retries: 3
     command: |
-{% if "v2" in nim_waku_cont_tag %}
+{% if "v1" not in nim_waku_cont_tag %}
 {% for protocol in nim_waku_protocols_enabled|difference(nim_waku_protocols_available) %}
       --{{ protocol }}=false
 {% endfor %}
