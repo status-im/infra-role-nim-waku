@@ -21,6 +21,9 @@ nim_waku_log_level: 'info'
 # esperimental discovery support
 nim_waku_discovery_enabled: false
 
+# FQDN used iin announced dns4 multiaddresses.
+nim_waku_dns4_domain_name: '{{ ansible_hostname }}'
+
 nim_waku_public_address: '{{ ansible_host }}'
 nim_waku_rpc_tcp_addr: '127.0.0.1'
 nim_waku_rpc_tcp_port: 8545
@@ -47,7 +50,7 @@ nim_waku_mem_reserve: '{{ (ansible_memtotal_mb * 0.2) | int }}'
 #websocket config in nim waku
 nim_waku_websocket_enabled: false
 nim_waku_websocket_secure_enabled: false
-#nim_waku_websocket_domain: 'hostname.example.org'
+nim_waku_websocket_domain: '{{ nim_waku_dns4_domain_name }}'
 #nim_waku_websocket_ssl_dir: '/etc/letsencrypt'
 #nim_waku_websocket_ssl_cert: '/etc/letsencrypt/live/{{ nim_waku_websocket_domain }}/fullchain.pem'
 #nim_waku_websocket_ssl_key: '/etc/letsencrypt/live/{{ nim_waku_websocket_domain }}/privkey.pem'
@@ -59,7 +62,7 @@ nim_waku_websockify_cont_name: 'websockify'
 nim_waku_websockify_cont_tag: 'v0.10.0'
 nim_waku_websockify_cont_image: 'statusteam/websockify:{{ nim_waku_websockify_cont_tag }}'
 nim_waku_websockify_cont_port: 8080
-#nim_waku_websockify_domain: 'hostname.example.org'
+nim_waku_websockify_domain: '{{ nim_waku_dns4_domain_name }}'
 #nim_waku_websockify_ssl_dir: ~
 #nim_waku_websockify_ssl_cert: ~
 #nim_waku_websockify_ssl_key: ~
