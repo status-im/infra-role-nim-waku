@@ -51,6 +51,10 @@
           - name: '{{ nim_waku_cont_name }}-websocket-health'
             type: 'script'
             script: 'websocat -vk1E wss://localhost:{{ nim_waku_websock_port }}'
+            interval: '60s'
+            # WARNING: WebSocket ports are unstable
+            # https://github.com/status-im/nim-waku/issues/845
+            failures_before_critical: 20160 # 2 weeks
 
 - name: Define Websockify service
   when: nim_waku_websockify_enabled
