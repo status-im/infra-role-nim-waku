@@ -47,14 +47,13 @@
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websocket']
         meta:
           node_enode: '/dns4/{{ nim_waku_websocket_domain | mandatory }}/tcp/{{ nim_waku_websock_port }}/wss/p2p/{{ nim_waku_peer_id }}'
-        checks:
-          - name: '{{ nim_waku_cont_name }}-websocket-health'
-            type: 'script'
-            script: 'websocat -vk1E wss://localhost:{{ nim_waku_websock_port }}'
-            interval: '60s'
-            # WARNING: WebSocket ports are unstable
-            # https://github.com/status-im/nim-waku/issues/845
-            failures_before_critical: 20160 # 2 weeks
+        # WARNING: WebSocket ports are unstable.
+        # https://github.com/status-im/nim-waku/issues/845
+        #checks:
+        #  - name: '{{ nim_waku_cont_name }}-websocket-health'
+        #    type: 'script'
+        #    script: 'websocat -vk1E wss://localhost:{{ nim_waku_websock_port }}'
+        #    interval: '60s'
 
 - name: Define Websockify service
   when: nim_waku_websockify_enabled
