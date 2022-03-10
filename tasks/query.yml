@@ -1,4 +1,9 @@
 ---
+- name: 'Wait for RPC port to be available'
+  wait_for:
+    port: '{{ nim_waku_rpc_tcp_port }}'
+    delay: 5
+
 - name: 'Extract address of the node for Consul'
   uri:
     url: 'http://localhost:{{ nim_waku_rpc_tcp_port }}/'

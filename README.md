@@ -40,3 +40,5 @@ Due to being part of Status infra this role assumes availability of certain thin
 * [Docker user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) with `dockremap` user
 * [Watchtower](https://github.com/containrrr/watchtower) for updating Docker images
 * The [`iptables-persistent`](https://zertrin.org/projects/iptables-persistent/) module
+
+This role also goes well together with [infra-role-waku-peers](https://github.com/status-im/infra-role-waku-peers).
