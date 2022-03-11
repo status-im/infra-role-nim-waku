@@ -8,7 +8,7 @@ nim_waku_cont_vol: '/docker/{{ nim_waku_cont_name }}'
 nim_waku_node_db_path: '{{ nim_waku_cont_vol }}/data'
 
 # Value for private node key which is used to create public enode key
-nim_waku_node_key: ~
+#nim_waku_node_key: ~
 nim_waku_node_key_file_path: '{{ nim_waku_cont_vol }}/nodekey'
 
 # Protocols

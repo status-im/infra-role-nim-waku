@@ -15,21 +15,14 @@
   throttle: 1
   set_fact:
     # Node key needs to be a 64 char hexadecimal string
-    nim_waku_random_node_key: '{{ lookup("password", "/dev/null") | hash("sha256") }}'
-  when: not key_file.stat.exists
+    nim_waku_node_key: '{{ lookup("password", "/dev/null") | hash("sha256") }}'
+  when: >
+    not key_file.stat.exists and
+    nim_waku_node_key is not defined
 
 - name: Save generate node key to file
   copy:
     dest: '{{ nim_waku_node_key_file_path | mandatory }}'
-    content: '{{ nim_waku_random_node_key | mandatory }}'
+    content: '{{ nim_waku_node_key | mandatory }}'
     mode: 0400
   when: not key_file.stat.exists
-
-- name: Read node key to from a file
-  slurp:
-    src: '{{ nim_waku_node_key_file_path }}'
-  register: node_key_slurp
-
-- name: Extract node key
-  set_fact:
-    nim_waku_node_key: '{{ node_key_slurp.content | b64decode | trim }}'
