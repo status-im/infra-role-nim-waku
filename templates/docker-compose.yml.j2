@@ -27,6 +27,7 @@ services:
       - '{{ nim_waku_p2p_udp_port }}:{{ nim_waku_p2p_udp_port }}/udp'
       - '{{ nim_waku_metrics_port }}:{{ nim_waku_metrics_port }}/tcp'
       - '{{ nim_waku_websock_port }}:{{ nim_waku_websock_port }}/tcp'
+      - '{{ nim_waku_disc_v5_port }}:{{ nim_waku_disc_v5_port }}/udp'
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:{{ nim_waku_metrics_port }}/health"]
       interval: 30s
@@ -55,6 +56,14 @@ services:
       --websocket-secure-cert-path={{ nim_waku_websocket_ssl_cert | mandatory }}
 {% endif %}
 {% endif %}
+{% endif %}
+{% if nim_waku_disc_v5_enabled %}
+      --discv5-discovery=true
+      --discv5-udp-port={{ nim_waku_disc_v5_port }}
+      --discv5-enr-auto-update={{ nim_waku_disc_v5_enr_auto_update }}
+{% for node in nim_waku_disc_v5_bootstrap_nodes %}
+      --discv5-bootstrap-node={{ node }}
+{% endfor %}
 {% else %}
       --discovery={{ nim_waku_discovery_enabled }}
 {% endif %}

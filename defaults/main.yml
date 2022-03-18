@@ -18,8 +18,13 @@ nim_waku_protocols_enabled: ['relay', 'store', 'filter', 'swap', 'lightpush']
 # Available: error, warn, info, debug
 nim_waku_log_level: 'info'
 
-# esperimental discovery support
+# experimental discovery support
 nim_waku_discovery_enabled: false
+
+# Discovery V5
+nim_waku_disc_v5_enabled: false
+nim_waku_disc_v5_enr_auto_update: false
+nim_waku_disc_v5_bootstrap_nodes: []
 
 # FQDN used iin announced dns4 multiaddresses.
 nim_waku_dns4_domain_name: '{{ ansible_hostname }}'
@@ -28,6 +33,7 @@ nim_waku_public_address: '{{ ansible_host }}'
 nim_waku_rpc_tcp_addr: '127.0.0.1'
 nim_waku_rpc_tcp_port: 8545
 nim_waku_websock_port: 8000
+nim_waku_disc_v5_port: 9000
 nim_waku_p2p_tcp_port: 30303
 nim_waku_p2p_udp_port: 30303
 
