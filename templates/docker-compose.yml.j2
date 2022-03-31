@@ -49,7 +49,7 @@ services:
       --store-capacity={{ nim_waku_store_capacity }}
       --dns4-domain-name={{ nim_waku_dns4_domain_name }}
 {% if "rln-relay" in nim_waku_protocols_enabled %}
-      --rln-relay-content-topic={{nim_waku_rln_relay_content_topic}}
+      --rln-relay-content-topic='{{ nim_waku_rln_relay_content_topic }}'
 {% endif %}
 {% if nim_waku_websocket_enabled %}
       --websocket-port={{ nim_waku_websock_port }}
