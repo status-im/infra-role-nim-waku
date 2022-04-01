@@ -24,6 +24,11 @@
     fail_msg: 'Did not receive Nim-Waku node address!'
     quiet: true
 
+- name: Extract ENR address from resposne
+  set_fact:
+    nim_waku_discv5_enr_addr: |-
+      {{ waku_info.json.result.get("enrUri", "unknown") }}
+
 - name: Extract LibP2P TCP address from list
   set_fact:
     nim_waku_libp2p_multiaddr: |-

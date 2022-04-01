@@ -2,7 +2,7 @@
 - name: Define Consul services
   set_fact:
     consul_services:
-      - id: '{{ nim_waku_cont_name }}'
+      - id:   '{{ nim_waku_cont_name }}'
         name: '{{ nim_waku_cont_name }}'
         port: '{{ nim_waku_p2p_tcp_port }}'
         address: '{{ nim_waku_p2p_tcp_port }}'
@@ -14,7 +14,13 @@
             type: 'tcp'
             tcp: 'localhost:{{ nim_waku_p2p_tcp_port }}'
 
-      - id: '{{ nim_waku_cont_name }}-metrics'
+      - id:   '{{ nim_waku_cont_name }}-enr'
+        name: '{{ nim_waku_cont_name }}-enr'
+        tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'enr']
+        meta:
+          node_enode: '{{ nim_waku_discv5_enr_addr | default("unknown") }}'
+
+      - id:   '{{ nim_waku_cont_name }}-metrics'
         name: '{{ nim_waku_cont_name }}-metrics'
         port: '{{ nim_waku_metrics_port }}'
         address: '{{ ansible_local.wireguard.vpn_ip }}'
@@ -26,7 +32,7 @@
             type: 'http'
             http: 'http://localhost:{{ nim_waku_metrics_port }}/health'
 
-      - id: '{{ nim_waku_cont_name }}-rpc'
+      - id:   '{{ nim_waku_cont_name }}-rpc'
         name: '{{ nim_waku_cont_name }}-rpc'
         port: '{{ nim_waku_rpc_tcp_port }}'
         address: '{{ ansible_local.wireguard.vpn_ip }}'
@@ -40,7 +46,7 @@
   when: nim_waku_websocket_enabled
   set_fact:
     consul_service_websocket:
-      - id: '{{ nim_waku_cont_name }}-websocket'
+      - id:   '{{ nim_waku_cont_name }}-websocket'
         name: '{{ nim_waku_cont_name }}-websocket'
         port: '{{ nim_waku_websock_port }}'
         address: '{{ nim_waku_p2p_tcp_port }}'
@@ -59,7 +65,7 @@
   when: nim_waku_websockify_enabled
   set_fact:
     consul_service_websockify:
-      - id: '{{ nim_waku_cont_name }}-websockify'
+      - id:   '{{ nim_waku_cont_name }}-websockify'
         name: '{{ nim_waku_cont_name }}-websockify'
         port: '{{ nim_waku_websockify_cont_port }}'
         address: '{{ nim_waku_p2p_tcp_port }}'
