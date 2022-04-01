@@ -33,7 +33,9 @@ services:
       interval: 30s
       retries: 3
     command: |
-{% if "v1" not in nim_waku_cont_tag %}
+{% if "v1" in nim_waku_cont_tag %}
+      --discovery={{ nim_waku_discovery_enabled }}
+{% else %}{# if "v1" in nim_waku_cont_tag #}
 {% for protocol in nim_waku_protocols_enabled|difference(nim_waku_protocols_available) %}
       --{{ protocol }}=false
 {% endfor %}
@@ -49,15 +51,14 @@ services:
       --store-capacity={{ nim_waku_store_capacity }}
       --dns4-domain-name={{ nim_waku_dns4_domain_name }}
 {% if "rln-relay" in nim_waku_protocols_enabled %}
-      --rln-relay-content-topic='{{ nim_waku_rln_relay_content_topic }}'
-{% endif %}
+      --rln-relay-content-topic={{ nim_waku_rln_relay_content_topic }}
+{% endif -%}
 {% if nim_waku_websocket_enabled %}
       --websocket-port={{ nim_waku_websock_port }}
 {% if nim_waku_websocket_secure_enabled %}
       --websocket-secure-support=true
       --websocket-secure-key-path={{ nim_waku_websocket_ssl_key | mandatory }}
       --websocket-secure-cert-path={{ nim_waku_websocket_ssl_cert | mandatory }}
-{% endif %}
 {% endif %}
 {% endif %}
 {% if nim_waku_disc_v5_enabled %}
@@ -67,9 +68,8 @@ services:
 {% for node in nim_waku_disc_v5_bootstrap_nodes %}
       --discv5-bootstrap-node={{ node }}
 {% endfor %}
-{% else %}
-      --discovery={{ nim_waku_discovery_enabled }}
 {% endif %}
+{% endif %}{# if "v1" in nim_waku_cont_tag #}
 {% if nim_waku_node_key is defined %}
       --nodekey={{ nim_waku_node_key | mandatory }}
 {% endif %}
