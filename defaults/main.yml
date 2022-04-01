@@ -12,7 +12,7 @@ nim_waku_node_db_path: '{{ nim_waku_cont_vol }}/data'
 nim_waku_node_key_file_path: '{{ nim_waku_cont_vol }}/nodekey'
 
 # Protocols
-nim_waku_protocols_available: ['relay', 'store', 'filter', 'swap', 'lightpush']
+nim_waku_protocols_available: ['relay', 'store', 'filter', 'swap', 'lightpush', 'rln-relay']
 nim_waku_protocols_enabled: ['relay', 'store', 'filter', 'swap', 'lightpush']
 
 # Available: error, warn, info, debug
@@ -42,6 +42,9 @@ nim_waku_p2p_max_connections: 150
 
 # maximum number of stored historical messages
 nim_waku_store_capacity: 10000
+
+# RLN Relay topic
+#nim_waku_rln_relay_content_topic: ~
 
 # metrics are disabled by default
 nim_waku_metrics_enabled: true
