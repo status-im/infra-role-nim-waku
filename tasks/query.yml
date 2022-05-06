@@ -26,6 +26,8 @@
 
 - name: Extract LibP2P TCP address from list
   set_fact:
+    nim_waku_libp2p_enr_uri: |-
+      {{ waku_info.json.result.enrUri }}
     nim_waku_libp2p_multiaddr: |-
       {{ waku_info.json.result.listenAddresses
       | reject("contains", "/ws") | first }}
