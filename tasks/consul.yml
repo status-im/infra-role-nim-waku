@@ -93,3 +93,6 @@
   include_role: name=consul-service
   vars:
     consul_config_name: '{{ nim_waku_cont_name | replace("-", "_") }}'
+    consul_default_success_before_passing: '{{ nim_waku_consul_success_before_passing }}'
+    consul_default_failures_before_warning: '{{ nim_waku_consul_failures_before_warning }}'
+    consul_default_failures_before_critical: '{{ nim_waku_consul_failures_before_critical }}'

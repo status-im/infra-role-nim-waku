@@ -83,6 +83,11 @@ consul_url: 'http://localhost:8500/v1/catalog'
 nim_waku_restart_condition: 'any'
 nim_waku_restart_window_sec: 120
 
+# Consul Service
+nim_waku_consul_success_before_passing: 0
+nim_waku_consul_failures_before_warning: 1
+nim_waku_consul_failures_before_critical: 2
+
 # general container management
 compose_recreate: 'smart'
 compose_state: 'present'
