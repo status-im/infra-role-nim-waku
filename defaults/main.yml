@@ -45,7 +45,7 @@ nim_waku_store_capacity: 10000
 
 # SQLite store
 nim_waku_sqlite_store: false
-nim_waku_sqlite_retention_time: '7.days.seconds'
+nim_waku_sqlite_retention_time: 604800 # 7 days
 
 # RLN Relay topic
 #nim_waku_rln_relay_content_topic: ~
