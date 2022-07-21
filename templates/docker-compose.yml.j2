@@ -65,6 +65,10 @@ services:
       --websocket-secure-cert-path={{ nim_waku_websocket_ssl_cert | mandatory }}
 {% endif %}
 {% endif %}
+{% if nim_waku_dns_disc_enabled %}
+      --dns-discovery=true
+      --dns-discovery-url={{ nim_waku_dns_disc_url }}
+{% endif %}
 {% if nim_waku_disc_v5_enabled %}
       --discv5-discovery=true
       --discv5-udp-port={{ nim_waku_disc_v5_port }}

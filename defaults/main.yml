@@ -21,6 +21,9 @@ nim_waku_log_level: 'info'
 # experimental discovery support
 nim_waku_discovery_enabled: false
 
+# DNS Discovery
+nim_waku_dns_disc_enabled: false
+
 # Discovery V5
 nim_waku_disc_v5_enabled: false
 nim_waku_disc_v5_enr_auto_update: false
