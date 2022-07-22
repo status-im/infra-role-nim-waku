@@ -23,6 +23,13 @@ nim_waku_websocket_ssl_key: '/etc/letsencrypt/live/{{ nim_waku_websocket_domain 
 ```
 In this case [LetsEncrypt](https://letsencrypt.org/) is used, but any other certificate would work as long ass the full chain is used.
 
+DNS-based discovery can be enabled to bootstrap a node's connections to a list of existing peers at the configured domain.
+The configured domain URL should be in the format 'enrtree://<key>@<fqdn>', for example:
+```yaml
+nim_waku_dns_disc_enabled: true
+nim_waku_dns_disc_url: 'enrtree://AOFTICU2XWDULNLZGRMQS4RIZPAZEHYMV4FYHAPW563HNRAOERP7C@test.waku.nodes.status.im'
+```
+
 # Usage
 
 You can re-create containers on the host using:

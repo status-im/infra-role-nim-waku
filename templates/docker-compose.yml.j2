@@ -67,7 +67,7 @@ services:
 {% endif %}
 {% if nim_waku_dns_disc_enabled %}
       --dns-discovery=true
-      --dns-discovery-url={{ nim_waku_dns_disc_url }}
+      --dns-discovery-url={{ nim_waku_dns_disc_url | mandatory }}
 {% endif %}
 {% if nim_waku_disc_v5_enabled %}
       --discv5-discovery=true
