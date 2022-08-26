@@ -9,10 +9,6 @@
 
 - name: Download Websocat installed
   get_url:
-    url: 'https://github.com/vi/websocat/releases/download/v1.8.0/websocat_1.8.0_newer_amd64.deb'
-    dest: '/tmp/websocat_1.8.0_newer_amd64.deb'
-    checksum: 'sha256:5968a3a2ede69fa8bb3df1419b908575f6532ce4eef250e1fcfbaadada3ccaef'
-
-- name: Install Websocat utility for Websockets
-  apt:
-    deb: '/tmp/websocat_1.8.0_newer_amd64.deb'
+    url: 'https://github.com/vi/websocat/releases/download/v1.10.0/websocat.x86_64-unknown-linux-musl'
+    dest: '/usr/local/bin/websocat'
+    checksum: 'sha256:b3dd771cf71a74e732ff99cf397b4cc62fc000e989d46c4dfbec1b86cc051896'
