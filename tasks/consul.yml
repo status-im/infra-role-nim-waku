@@ -69,11 +69,11 @@
         name: '{{ nim_waku_cont_name }}-websockify'
         port: '{{ nim_waku_websockify_cont_port }}'
         address: '{{ nim_waku_p2p_tcp_port }}'
-        tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websocket']
+        tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websockify']
         meta:
           node_enode: '/dns4/{{ nim_waku_websockify_domain | mandatory }}/tcp/{{ nim_waku_websockify_cont_port }}/wss/p2p/{{ nim_waku_peer_id }}'
         checks:
-          - name: '{{ nim_waku_cont_name }}-websocket-health'
+          - name: '{{ nim_waku_cont_name }}-websockify-health'
             type: 'script'
             script: 'websocat -vk1E wss://127.0.0.1:{{ nim_waku_websockify_cont_port }}'
 
