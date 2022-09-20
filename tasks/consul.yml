@@ -75,7 +75,7 @@
         checks:
           - name: '{{ nim_waku_cont_name }}-websocket-health'
             type: 'script'
-            script: 'websocat -vk1E wss://localhost:{{ nim_waku_websockify_cont_port }}'
+            script: 'websocat -vk1E wss://127.0.0.1:{{ nim_waku_websockify_cont_port }}'
 
 - name: Add Websocket Consul service
   when: nim_waku_websocket_enabled
