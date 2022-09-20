@@ -33,6 +33,9 @@ nim_waku_disc_v5_bootstrap_nodes: []
 # FQDN used iin announced dns4 multiaddresses.
 nim_waku_dns4_domain_name: '{{ ansible_hostname }}'
 
+# Ethereum testnet client address
+#nim_waku_eth_client_address: 'http://geth.example.org:8545'
+
 nim_waku_public_address: '{{ ansible_host }}'
 nim_waku_rpc_tcp_addr: '127.0.0.1'
 nim_waku_rpc_tcp_port: 8545

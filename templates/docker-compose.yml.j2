@@ -81,6 +81,9 @@ services:
 {% if nim_waku_node_key is defined %}
       --nodekey={{ nim_waku_node_key | mandatory }}
 {% endif %}
+{% if nim_waku_eth_client_address %}
+      --eth-client-address={{ nim_waku_eth_client_address | mandatory }}
+{% endif %}
       --nat=extip:{{ nim_waku_public_address }}
       --log-level={{ nim_waku_log_level }}
       --rpc-port={{ nim_waku_rpc_tcp_port }}
