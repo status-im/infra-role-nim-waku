@@ -5,7 +5,7 @@
       - id:   '{{ nim_waku_cont_name }}'
         name: '{{ nim_waku_cont_name }}'
         port: '{{ nim_waku_p2p_tcp_port }}'
-        address: '{{ nim_waku_p2p_tcp_port }}'
+        address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'libp2p']
         meta:
           node_enode: '{{ nim_waku_libp2p_multiaddr | default("unknown") }}'
@@ -17,7 +17,7 @@
       - id:   '{{ nim_waku_cont_name }}-enr'
         name: '{{ nim_waku_cont_name }}-enr'
         port: '{{ nim_waku_p2p_tcp_port }}'
-        address: '{{ nim_waku_p2p_tcp_port }}'
+        address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'enr']
         meta:
           node_enode: '{{ nim_waku_libp2p_enr_uri | default("unknown") }}'
@@ -51,7 +51,7 @@
       - id:   '{{ nim_waku_cont_name }}-websocket'
         name: '{{ nim_waku_cont_name }}-websocket'
         port: '{{ nim_waku_websock_port }}'
-        address: '{{ nim_waku_p2p_tcp_port }}'
+        address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websocket']
         meta:
           node_enode: '/dns4/{{ nim_waku_websocket_domain | mandatory }}/tcp/{{ nim_waku_websock_port }}/wss/p2p/{{ nim_waku_peer_id }}'
@@ -68,7 +68,7 @@
       - id:   '{{ nim_waku_cont_name }}-websockify'
         name: '{{ nim_waku_cont_name }}-websockify'
         port: '{{ nim_waku_websockify_cont_port }}'
-        address: '{{ nim_waku_p2p_tcp_port }}'
+        address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websockify']
         meta:
           node_enode: '/dns4/{{ nim_waku_websockify_domain | mandatory }}/tcp/{{ nim_waku_websockify_cont_port }}/wss/p2p/{{ nim_waku_peer_id }}'
