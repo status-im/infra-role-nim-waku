@@ -60,6 +60,7 @@ services:
 {% if nim_waku_rln_relay_dynamic %}
       --rln-relay-eth-account-address={{ nim_waku_rln_relay_eth_account_address }}
       --rln-relay-eth-contract-address={{ nim_waku_rln_relay_eth_contract_address }}
+      --rln-relay-eth-client-address={{ nim_waku_rln_relay_eth_client_address | mandatory }}
 {% endif -%}
 {% endif -%}
 {% if nim_waku_websocket_enabled %}
