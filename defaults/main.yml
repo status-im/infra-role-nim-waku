@@ -54,8 +54,11 @@ nim_waku_store_capacity: 10000
 nim_waku_sqlite_store: false
 nim_waku_sqlite_retention_time: 604800 # 7 days
 
-# RLN Relay topic
-#nim_waku_rln_relay_content_topic: ~
+# RLN Relay parameters
+nim_waku_rln_relay_content_topic: '/toy-chat/2/luzhou/proto'
+nim_waku_rln_relay_dynamic: true
+nim_waku_rln_relay_eth_account_address: '0000000000000000000000000000000000000000'
+nim_waku_rln_relay_eth_contract_address: '0x4252105670fE33D2947e8EaD304969849E64f2a6'
 
 # metrics are disabled by default
 nim_waku_metrics_enabled: true

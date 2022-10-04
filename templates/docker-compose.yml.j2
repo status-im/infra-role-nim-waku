@@ -56,6 +56,9 @@ services:
 {% endif %}
 {% if "rln-relay" in nim_waku_protocols_enabled %}
       --rln-relay-content-topic={{ nim_waku_rln_relay_content_topic }}
+      --rln-relay-dynamic={{ nim_waku_rln_relay_dynamic }}
+      --rln-relay-eth-account-address={{ nim_waku_rln_relay_eth_account_address }}
+      --rln-relay-eth-contract-address={{ nim_waku_rln_relay_eth_contract_address }}
 {% endif -%}
 {% if nim_waku_websocket_enabled %}
       --websocket-port={{ nim_waku_websock_port }}
