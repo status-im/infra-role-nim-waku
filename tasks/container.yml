@@ -44,7 +44,7 @@
     systemd_timer_start_on_creation: false
     systemd_timer_user: 'root'
     systemd_timer_consul_warning: true
-    systemd_timer_frequency: '00/12:00' # every 12 hours
-    systemd_timer_random_delay_sec: 21600 # 6 hours
+    systemd_timer_frequency: '00/06:00' # every 6 hours
+    systemd_timer_random_delay_sec: 11600 # 2 hours
     systemd_timer_script_path: '/usr/bin/docker'
     systemd_timer_script_args: 'restart {{ nim_waku_cont_name }}'
