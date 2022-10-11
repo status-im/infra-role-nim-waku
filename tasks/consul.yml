@@ -60,6 +60,9 @@
             type: 'script'
             script: 'websocat -vk1E wss://127.0.0.1:{{ nim_waku_websock_port }}'
             interval: '60s'
+            # Websocket not responding due to TCP socket leak:
+            # https://github.com/status-im/nwaku/issues/1186
+            disabled: true
 
 - name: Define Websockify service
   when: nim_waku_websockify_enabled
