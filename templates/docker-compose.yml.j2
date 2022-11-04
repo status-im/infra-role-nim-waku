@@ -42,17 +42,14 @@ services:
 {% for protocol in nim_waku_protocols_enabled %}
       --{{ protocol }}=true
 {% endfor %}
-      --db-path=/data
       --rpc-admin=true
-      --persist-peers=true
+      --peer-persistence=true
       --keep-alive=true
-      --persist-messages=true
       --max-connections={{ nim_waku_p2p_max_connections }}
-      --store-capacity={{ nim_waku_store_capacity }}
       --dns4-domain-name={{ nim_waku_dns4_domain_name }}
-{% if nim_waku_sqlite_store %}
-      --sqlite-store=true
-      --sqlite-retention-time={{ nim_waku_sqlite_retention_time }}
+{% if "store" in nim_waku_protocols_enabled %}
+      --store-message-db-url='sqlite:///data/store.sqlite3'
+      --store-message-retention-policy={{ nim_waku_store_message_retention_policy }}
 {% endif %}
 {% if "rln-relay" in nim_waku_protocols_enabled %}
       --rln-relay-content-topic={{ nim_waku_rln_relay_content_topic }}
@@ -88,7 +85,7 @@ services:
       --nodekey={{ nim_waku_node_key | mandatory }}
 {% endif %}
       --nat=extip:{{ nim_waku_public_address }}
-      --log-level={{ nim_waku_log_level }}
+      --log-level={{ nim_waku_log_level | upper }}
       --rpc-port={{ nim_waku_rpc_tcp_port }}
       --rpc-address=0.0.0.0
       --tcp-port={{ nim_waku_p2p_tcp_port }}
