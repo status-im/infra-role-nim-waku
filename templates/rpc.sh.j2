@@ -30,6 +30,7 @@ PAYLOAD="{
 # The jq script checks if error exists and adjusts exit code.
 curl --request POST \
     --silent \
+    --show-error \
     --fail-with-body \
     --header 'Content-type:application/json' \
     --data "${PAYLOAD}" \
