@@ -43,6 +43,7 @@ nim_waku_p2p_udp_port: 30303
 
 # P2P Connections
 nim_waku_p2p_max_connections: 150
+nim_waku_keep_alive: true
 nim_waku_peer_persistence: false
 
 # Store
