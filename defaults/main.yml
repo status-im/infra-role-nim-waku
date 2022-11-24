@@ -41,8 +41,9 @@ nim_waku_disc_v5_port: 9000
 nim_waku_p2p_tcp_port: 30303
 nim_waku_p2p_udp_port: 30303
 
-# maximum libp2p connections
+# P2P Connections
 nim_waku_p2p_max_connections: 150
+nim_waku_peer_persistence: false
 
 # Store
 nim_waku_store_message_retention_policy: 'time:604800' # 7 days
