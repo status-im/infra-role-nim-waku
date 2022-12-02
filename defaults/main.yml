@@ -12,7 +12,7 @@ nim_waku_node_db_path: '{{ nim_waku_cont_vol }}/data'
 nim_waku_node_key_file_path: '{{ nim_waku_cont_vol }}/nodekey'
 
 # Protocols
-nim_waku_protocols_available: ['relay', 'store', 'filter', 'swap', 'lightpush', 'rln-relay']
+nim_waku_protocols_available: ['relay', 'store', 'filter', 'swap', 'lightpush', 'rln-relay', 'peer-exchange']
 nim_waku_protocols_enabled: ['relay', 'store', 'filter', 'swap', 'lightpush']
 
 # Available: error, warn, info, debug
