@@ -15,6 +15,9 @@ nim_waku_node_key_file_path: '{{ nim_waku_cont_vol }}/nodekey'
 nim_waku_protocols_available: ['relay', 'store', 'filter', 'swap', 'lightpush', 'rln-relay', 'peer-exchange']
 nim_waku_protocols_enabled: ['relay', 'store', 'filter', 'swap', 'lightpush']
 
+# Topic configuration
+nim_waku_topics: ['/waku/2/default-waku/proto']
+
 # Available: error, warn, info, debug
 nim_waku_log_level: 'info'
 
