@@ -32,19 +32,3 @@
     recreate: '{{ compose_recreate }}'
     # Avoid deprecation warning
     tls_hostname: 'localhost'
-
-# FIXME: Drop once websockets issue is resolved:
-# https://github.com/status-im/nwaku/issues/1186
-- name: Temporary periodic container restart
-  include_role: name=systemd-timer
-  vars:
-    systemd_timer_name: 'restart-{{ nim_waku_cont_name }}'
-    systemd_timer_description: 'Restart of {{ nim_waku_cont_name }} container'
-    systemd_timer_documentation: 'https://github.com/status-im/nwaku/issues/1186'
-    systemd_timer_start_on_creation: false
-    systemd_timer_user: 'root'
-    systemd_timer_consul_warning: true
-    systemd_timer_frequency: '00/06:00' # every 6 hours
-    systemd_timer_random_delay_sec: 11600 # 2 hours
-    systemd_timer_script_path: '/usr/bin/docker'
-    systemd_timer_script_args: 'restart {{ nim_waku_cont_name }}'
