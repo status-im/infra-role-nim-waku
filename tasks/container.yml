@@ -21,7 +21,7 @@
     dest: '{{ nim_waku_cont_vol }}/docker-compose.yml'
     owner: dockremap
     group: docker
-    mode: 0644
+    mode: 0664
 
 - name: 'Create container: {{ nim_waku_cont_name }}'
   docker_compose:
