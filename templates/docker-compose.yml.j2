@@ -48,6 +48,9 @@ services:
       --max-connections={{ nim_waku_p2p_max_connections }}
       --dns4-domain-name={{ nim_waku_dns4_domain_name }}
       --topics='{{ nim_waku_topics | join(" ") }}'
+{% for protected_topic in nim_waku_protected_topics %}
+      --protected-topic='{{ protected_topic | mandatory }}'
+{% endfor %}
 {% if "store" in nim_waku_protocols_enabled %}
       --store-message-db-url='sqlite:///data/store.sqlite3'
       --store-message-retention-policy={{ nim_waku_store_message_retention_policy }}

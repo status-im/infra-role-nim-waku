@@ -17,6 +17,8 @@ nim_waku_protocols_enabled: ['relay', 'store', 'filter', 'lightpush']
 
 # Topic configuration
 nim_waku_topics: ['/waku/2/default-waku/proto']
+# Topics and its public key to be used for message validation.
+nim_waku_protected_topics: []
 
 # Available: error, warn, info, debug
 nim_waku_log_level: 'info'
