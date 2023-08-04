@@ -50,6 +50,7 @@ services:
       --topics='{{ nim_waku_topics | join(" ") }}'
 {% if "store" in nim_waku_protocols_enabled %}
       --store-message-db-url='sqlite:///data/store.sqlite3'
+      --store-message-db-vacuum={{ nim_waku_store_vacuum | to_json }}
       --store-message-retention-policy={{ nim_waku_store_message_retention_policy }}
 {% endif %}
 {% if "rln-relay" in nim_waku_protocols_enabled %}
