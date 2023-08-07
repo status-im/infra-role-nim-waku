@@ -53,6 +53,7 @@ nim_waku_peer_persistence: false
 
 # Store
 nim_waku_store_message_retention_policy: 'time:604800' # 7 days
+nim_waku_store_vacuum: false
 
 # RLN Relay parameters
 nim_waku_rln_relay_content_topic: '/toy-chat/2/luzhou/proto'
