@@ -59,7 +59,6 @@ services:
       --store-message-retention-policy={{ nim_waku_store_message_retention_policy }}
 {% endif %}
 {% if "rln-relay" in nim_waku_protocols_enabled %}
-      --rln-relay-content-topic={{ nim_waku_rln_relay_content_topic }}
       --rln-relay-dynamic={{ nim_waku_rln_relay_dynamic }}
       --rln-relay-tree-path={{ nim_waku_rln_relay_tree_path }}
 {% if nim_waku_rln_relay_dynamic %}
