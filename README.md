@@ -8,8 +8,6 @@ The crucial settings are:
 ```yaml
 # Private key which affects enode:// address
 nim_waku_node_key: 
-# Name of Status eth cluster running status-go
-nim_waku_bootstrap_fleet: 'test'
 nim_waku_log_level: 'info'
 ```
 You can also enable [WebSockets](https://en.wikipedia.org/wiki/WebSocket) as transport for LibP2P using:
