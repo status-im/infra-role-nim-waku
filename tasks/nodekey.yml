@@ -33,12 +33,12 @@
     src: '{{ nim_waku_node_key_file_path | mandatory }}'
   register: key_file
   when: >
-    key_generation.skipped is not defined and
+    key_generation.skipped is defined and
     nim_waku_node_key is not defined
 
 - name: Extract the node key from file
   set_fact:
     nim_waku_node_key: '{{ key_file.content | b64decode | trim }}'
   when: >
-    key_generation.skipped and
+    key_generation.skipped is defined and
     nim_waku_node_key is not defined
