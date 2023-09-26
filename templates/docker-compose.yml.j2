@@ -54,7 +54,7 @@ services:
       --protected-topic='{{ protected_topic | mandatory }}'
 {% endfor %}
 {% if "store" in nim_waku_protocols_enabled %}
-      --store-message-db-url='sqlite:///data/store.sqlite3'
+      --store-message-db-url={{ nim_waku_store_message_db_url }}
       --store-message-db-vacuum={{ nim_waku_store_vacuum | to_json }}
       --store-message-retention-policy={{ nim_waku_store_message_retention_policy }}
 {% endif %}
