@@ -9,6 +9,7 @@
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'libp2p']
         meta:
           node_enode: '{{ nim_waku_libp2p_multiaddr | default("unknown") }}'
+          protocols: '{{ nim_waku_protocols_enabled | join(",") }}'
         checks:
           - name: '{{ nim_waku_cont_name }}-health'
             type: 'tcp'
