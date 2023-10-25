@@ -16,6 +16,8 @@ services:
           memory: '{{ nim_waku_mem_reserve }}M'
       restart_policy:
         condition: '{{ nim_waku_restart_condition }}'
+    environment:
+      SQLITE_TMPDIR: '{{ nim_waku_node_tmp_path }}'
     volumes:
       - '{{ nim_waku_node_db_path }}:/data'
 {% if nim_waku_websocket_enabled %}

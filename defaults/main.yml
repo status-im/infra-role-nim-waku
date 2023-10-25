@@ -6,6 +6,8 @@ nim_waku_cont_vol: '/docker/{{ nim_waku_cont_name }}'
 
 # Node database path
 nim_waku_node_db_path: '{{ nim_waku_cont_vol }}/data'
+# TMPDIR for Sqlite to use when acuuming to free space. Takes effect on creation.
+nim_waku_node_tmp_path: '{{ nim_waku_cont_vol }}/data/tmp'
 
 # Value for private node key which is used to create public enode key
 #nim_waku_node_key: ~
