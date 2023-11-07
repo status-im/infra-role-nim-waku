@@ -90,7 +90,10 @@ services:
 {% endif %}
 {% endif %}{# if "v1" in nim_waku_cont_tag #}
 {% if nim_waku_node_key is defined %}
-      --nodekey={{ nim_waku_node_key | mandatory }}
+      --nodekey={{ nim_waku_node_key }}
+{% endif %}
+{% if nim_waku_cluster_id is defined %}
+      --cluster-id={{ nim_waku_cluster_id }}
 {% endif %}
       --nat=extip:{{ nim_waku_public_address }}
       --log-level={{ nim_waku_log_level | upper }}

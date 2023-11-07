@@ -13,6 +13,9 @@ nim_waku_node_tmp_path: '{{ nim_waku_cont_vol }}/data/tmp'
 #nim_waku_node_key: ~
 nim_waku_node_key_file_path: '{{ nim_waku_cont_vol }}/nodekey'
 
+# Optional cluster-id flag
+#nim_waku_cluster_id: 1
+
 # Protocols
 nim_waku_protocols_available: ['relay', 'store', 'filter', 'lightpush', 'rln-relay', 'peer-exchange']
 nim_waku_protocols_enabled: ['relay', 'store', 'filter', 'lightpush']
