@@ -106,6 +106,7 @@ nim_waku_restart_condition: 'any'
 nim_waku_restart_window_sec: 120
 
 # Consul Service
+nim_waku_consul_service_name: 'nim-waku'
 nim_waku_consul_success_before_passing: 0
 nim_waku_consul_failures_before_warning: 1
 nim_waku_consul_failures_before_critical: 2

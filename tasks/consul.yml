@@ -3,7 +3,7 @@
   set_fact:
     consul_services:
       - id:   '{{ nim_waku_cont_name }}'
-        name: '{{ nim_waku_cont_name }}'
+        name: '{{ nim_waku_consul_service_name }}'
         port: '{{ nim_waku_p2p_tcp_port }}'
         address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'libp2p']
@@ -18,7 +18,7 @@
             disabled: true
 
       - id:   '{{ nim_waku_cont_name }}-enr'
-        name: '{{ nim_waku_cont_name }}-enr'
+        name: '{{ nim_waku_consul_service_name }}-enr'
         port: '{{ nim_waku_p2p_tcp_port }}'
         address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'enr']
@@ -26,7 +26,7 @@
           node_enode: '{{ nim_waku_libp2p_enr_uri | default("unknown") }}'
 
       - id:   '{{ nim_waku_cont_name }}-metrics'
-        name: '{{ nim_waku_cont_name }}-metrics'
+        name: '{{ nim_waku_consul_service_name }}-metrics'
         port: '{{ nim_waku_metrics_port }}'
         address: '{{ ansible_local.wireguard.vpn_ip }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'metrics']
@@ -40,7 +40,7 @@
             disabled: true
 
       - id:   '{{ nim_waku_cont_name }}-rpc'
-        name: '{{ nim_waku_cont_name }}-rpc'
+        name: '{{ nim_waku_consul_service_name }}-rpc'
         port: '{{ nim_waku_rpc_tcp_port }}'
         address: '{{ ansible_local.wireguard.vpn_ip }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'rpc']
@@ -56,7 +56,7 @@
   set_fact:
     consul_service_websocket:
       - id:   '{{ nim_waku_cont_name }}-websocket'
-        name: '{{ nim_waku_cont_name }}-websocket'
+        name: '{{ nim_waku_consul_service_name }}-websocket'
         port: '{{ nim_waku_websock_port }}'
         address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websocket']
@@ -76,7 +76,7 @@
   set_fact:
     consul_service_websockify:
       - id:   '{{ nim_waku_cont_name }}-websockify'
-        name: '{{ nim_waku_cont_name }}-websockify'
+        name: '{{ nim_waku_consul_service_name }}-websockify'
         port: '{{ nim_waku_websockify_cont_port }}'
         address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websockify']
