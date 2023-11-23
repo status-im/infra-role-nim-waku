@@ -11,6 +11,6 @@ galaxy_info:
     - xenial
     - focal
   dependencies:
-    - name: consul-service
+    - name: infra-role-consul-service
       src: git+git@github.com:status-im/infra-role-consul-service.git
       scm: git

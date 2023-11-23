@@ -98,7 +98,7 @@
     consul_services: '{{ consul_services + consul_service_websockify }}'
 
 - name: 'Consul service definition - {{ nim_waku_cont_name }}'
-  include_role: name=consul-service
+  include_role: name=infra-role-consul-service
   vars:
     consul_config_name: '{{ nim_waku_cont_name | replace("-", "_") }}'
     consul_default_success_before_passing: '{{ nim_waku_consul_success_before_passing }}'
