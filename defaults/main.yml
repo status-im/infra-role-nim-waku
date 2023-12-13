@@ -1,6 +1,6 @@
 ---
 nim_waku_cont_tag: 'latest'
-nim_waku_cont_image: 'wakuorg/nwaku:{{ nim_waku_cont_tag }}'
+nim_waku_cont_image: 'harbor.status.im/wakuorg/nwaku:{{ nim_waku_cont_tag }}'
 nim_waku_cont_name: 'nim-waku'
 nim_waku_cont_vol: '/docker/{{ nim_waku_cont_name }}'
 
