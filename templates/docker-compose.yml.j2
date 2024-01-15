@@ -95,6 +95,12 @@ services:
 {% if nim_waku_cluster_id is defined %}
       --cluster-id={{ nim_waku_cluster_id }}
 {% endif %}
+{% if nim_waku_max_msg_size is defined %}
+      --max-msg-size={{ nim_waku_max_msg_size }}
+{% endif %}
+{% if nim_waku_ip_colocation_limit is defined %}
+      --ip-colocation-limit={{ nim_waku_ip_colocation_limit }}
+{% endif %}
       --nat=extip:{{ nim_waku_public_address }}
       --log-level={{ nim_waku_log_level | upper }}
       --rpc-port={{ nim_waku_rpc_tcp_port }}

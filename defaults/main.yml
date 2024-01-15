@@ -13,6 +13,9 @@ nim_waku_node_tmp_path: '{{ nim_waku_cont_vol }}/data/tmp'
 #nim_waku_node_key: ~
 nim_waku_node_key_file_path: '{{ nim_waku_cont_vol }}/nodekey'
 
+# Waku Messages
+nim_waku_max_msg_size: 'size:150KiB'
+
 # Optional cluster-id flag
 #nim_waku_cluster_id: 1
 
@@ -55,6 +58,7 @@ nim_waku_p2p_udp_port: 30303
 nim_waku_p2p_max_connections: 150
 nim_waku_keep_alive: true
 nim_waku_peer_persistence: false
+nim_waku_ip_colocation_limit: 2
 
 # Store
 nim_waku_store_message_retention_policy: 'time:604800' # 7 days
