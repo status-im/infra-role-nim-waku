@@ -96,7 +96,7 @@ services:
       --cluster-id={{ nim_waku_cluster_id }}
 {% endif %}
 {% if nim_waku_max_msg_size is defined %}
-      --max-msg-size={{ nim_waku_max_msg_size }}
+      --max-msg-size={{ nim_waku_max_msg_size | size }}
 {% endif %}
 {% if nim_waku_ip_colocation_limit is defined %}
       --ip-colocation-limit={{ nim_waku_ip_colocation_limit }}
