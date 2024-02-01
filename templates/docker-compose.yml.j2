@@ -109,6 +109,9 @@ services:
       --metrics-server={{ nim_waku_metrics_enabled }}
       --metrics-server-port={{ nim_waku_metrics_port }}
       --metrics-server-address=0.0.0.0
+{% if nim_waku_relay_shard_manager is defined %}
+      --shard-relay-manager={{ nim_waku_relay_shard_manager }}
+{% endif %}
 {% if nim_waku_websockify_enabled %}
 
   websockify:
