@@ -40,17 +40,15 @@
             # Single-threated nature blocking responses due to DB I/O.
             disabled: true
 
-      - id:   '{{ nim_waku_cont_name }}-rpc'
-        name: '{{ nim_waku_consul_service_name }}-rpc'
-        port: '{{ nim_waku_rpc_tcp_port }}'
+      - id:   '{{ nim_waku_cont_name }}-rest'
+        name: '{{ nim_waku_consul_service_name }}-rest'
+        port: '{{ nim_waku_rest_port }}'
         address: '{{ ansible_local.wireguard.vpn_ip }}'
-        tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'rpc']
+        tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'rest']
         checks:
-          - id: '{{ nim_waku_cont_name }}-rpc-health'
-            type: 'script'
-            script: '{{ nim_waku_cont_vol }}/rpc.sh get_waku_v2_debug_v1_info'
-            # Single-threated nature blocking responses due to DB I/O.
-            disabled: true
+          - id: '{{ nim_waku_cont_name }}-rest-health'
+            type: 'http'
+            http: 'http://localhost:{{ nim_waku_rest_port }}/debug/v1/version'
 
 - name: Define Websocket service
   when: nim_waku_websocket_enabled

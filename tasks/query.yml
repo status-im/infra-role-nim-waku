@@ -1,18 +1,12 @@
 ---
-- name: 'Wait for RPC port to be available'
+- name: 'Wait for REST port to be available'
   wait_for:
-    port: '{{ nim_waku_rpc_tcp_port }}'
+    port: '{{ nim_waku_rest_port }}'
     delay: 5
 
 - name: 'Extract address of the node for Consul'
   uri:
-    url: 'http://localhost:{{ nim_waku_rpc_tcp_port }}/'
-    method: POST
-    body: 
-      method: 'get_waku_v2_debug_v1_info'
-      params: []
-      jsonrpc: '2.0'
-      id: 1
+    url: 'http://localhost:{{ nim_waku_rest_port }}/debug/v1/info'
     status_code: 200
     body_format: json
   register: waku_info
@@ -20,25 +14,25 @@
 
 - name: Verify we got the node address
   assert:
-    that: 'waku_info.json.result.listenAddresses is defined'
+    that: 'waku_info.json.listenAddresses is defined'
     fail_msg: 'Did not receive Nim-Waku node address!'
     quiet: true
 
 - name: Extract LibP2P TCP address from list
   set_fact:
     nim_waku_libp2p_enr_uri: |-
-      {{ waku_info.json.result.enrUri }}
+      {{ waku_info.json.enrUri }}
     nim_waku_libp2p_multiaddr: |-
-      {{ waku_info.json.result.listenAddresses
+      {{ waku_info.json.listenAddresses
       | reject("contains", "/ws") | first }}
 
 - name: Extract LibP2P WS address from list
   when: nim_waku_websocket_enabled or nim_waku_websockify_enabled
   set_fact:
     nim_waku_libp2p_websocket: |-
-      {{ waku_info.json.result.listenAddresses
+      {{ waku_info.json.listenAddresses
       | select("contains", "/ws") | first }}
 
-- name: Extract peer ID from RPC response
+- name: Extract peer ID from API response
   set_fact:
     nim_waku_peer_id: '{{ nim_waku_libp2p_multiaddr.split("/") | last }}'

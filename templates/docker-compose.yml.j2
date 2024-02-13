@@ -24,7 +24,7 @@ services:
       - '{{ nim_waku_websocket_ssl_dir }}:{{ nim_waku_websocket_ssl_dir | mandatory }}'
 {% endif %}
     ports:
-      - '{{ nim_waku_rpc_tcp_addr }}:{{ nim_waku_rpc_tcp_port }}:{{ nim_waku_rpc_tcp_port }}/tcp'
+      - '{{ nim_waku_rest_addr }}:{{ nim_waku_rest_port }}:{{ nim_waku_rest_port }}/tcp'
       - '{{ nim_waku_p2p_tcp_port }}:{{ nim_waku_p2p_tcp_port }}/tcp'
       - '{{ nim_waku_p2p_udp_port }}:{{ nim_waku_p2p_udp_port }}/udp'
       - '{{ nim_waku_metrics_port }}:{{ nim_waku_metrics_port }}/tcp'
@@ -44,7 +44,6 @@ services:
 {% for protocol in nim_waku_protocols_enabled %}
       --{{ protocol }}=true
 {% endfor %}
-      --rpc-admin=true
       --peer-persistence={{ nim_waku_peer_persistence | to_json }}
       --keep-alive={{ nim_waku_keep_alive | to_json }}
       --max-connections={{ nim_waku_p2p_max_connections }}
@@ -103,9 +102,14 @@ services:
 {% endif %}
       --nat=extip:{{ nim_waku_public_address }}
       --log-level={{ nim_waku_log_level | upper }}
-      --rpc-port={{ nim_waku_rpc_tcp_port }}
-      --rpc-address=0.0.0.0
       --tcp-port={{ nim_waku_p2p_tcp_port }}
+      --rest={{ nim_waku_rest_enabled }}
+{% if nim_waku_rest_enabled %}
+      --rest-address=0.0.0.0
+      --rest-port={{ nim_waku_rest_port }}
+      --rest-admin={{ "admin" in nim_waku_rest_apis_enabled }}
+      --rest-private={{ "private" in nim_waku_rest_apis_enabled }}
+{% endif %}
       --metrics-server={{ nim_waku_metrics_enabled }}
       --metrics-server-port={{ nim_waku_metrics_port }}
       --metrics-server-address=0.0.0.0

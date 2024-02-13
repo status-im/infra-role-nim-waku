@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# vim: set ft=sh:
+
+TIMEOUT="${TIMEOUT:-5}"
+URL="http://localhost:{{ nim_waku_rest_port }}"
+
+# List known useful endpoints when called without arguments.
+read -r -d '' ENDPOINTS << EOF
+/debug/v1/info
+/debug/v1/version
+/admin/v1/peers
+/health
+EOF
+
+if [[ $# == 0 ]]; then
+    ENDPOINT=$(
+        echo "${ENDPOINTS}" | fzf \
+            --preview='{{ nim_waku_cont_vol }}/api.sh ${1}' \
+            --preview-window='bottom,80%'
+    )
+    if [[ -z "${ENDPOINT}" ]]; then
+        exit 0
+    fi
+elif [[ $# > 1 ]]; then
+    echo "Too many arguments!" >&2
+    exit 1
+else
+    ENDPOINT="${1}"
+fi
+
+# Not all endpoints return JSON, that's the readon for jq magic.
+curl --silent --max-time "${TIMEOUT}" --show-error --fail-with-body "${URL}${ENDPOINT}" \
+    | jq --color-output --raw-input --raw-output '. as $line | try (fromjson) catch $line'

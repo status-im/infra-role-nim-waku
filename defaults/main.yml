@@ -47,8 +47,10 @@ nim_waku_disc_v5_bootstrap_nodes: []
 nim_waku_dns4_domain_name: '{{ ansible_hostname }}'
 
 nim_waku_public_address: '{{ ansible_host }}'
-nim_waku_rpc_tcp_addr: '127.0.0.1'
-nim_waku_rpc_tcp_port: 8545
+nim_waku_rest_enabled: true
+nim_waku_rest_addr: '127.0.0.1'
+nim_waku_rest_port: 8645
+nim_waku_rest_apis_enabled: ['admin'] # admin, private
 nim_waku_websock_port: 8000
 nim_waku_disc_v5_port: 9000
 nim_waku_p2p_tcp_port: 30303

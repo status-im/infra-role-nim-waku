@@ -7,10 +7,10 @@
     group: docker
     mode: 0775
 
-- name: Create script for calling RPC endpoint
+- name: Create script for calling REST API
   template:
-    src: 'rpc.sh.j2'
-    dest: '{{ nim_waku_cont_vol }}/rpc.sh'
+    src: 'api.sh.j2'
+    dest: '{{ nim_waku_cont_vol }}/api.sh'
     owner: dockremap
     group: docker
     mode: 0755
