@@ -24,6 +24,7 @@
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'enr']
         meta:
           node_enode: '{{ nim_waku_libp2p_enr_uri | default("unknown") }}'
+          protocols: '{{ nim_waku_protocols_enabled | join(",") }}'
 
       - id:   '{{ nim_waku_cont_name }}-metrics'
         name: '{{ nim_waku_consul_service_name }}-metrics'
@@ -62,6 +63,7 @@
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websocket']
         meta:
           node_enode: '/dns4/{{ nim_waku_websocket_domain | mandatory }}/tcp/{{ nim_waku_websock_port }}/wss/p2p/{{ nim_waku_peer_id }}'
+          protocols: '{{ nim_waku_protocols_enabled | join(",") }}'
         checks:
           - name: '{{ nim_waku_cont_name }}-websocket-health'
             type: 'script'
