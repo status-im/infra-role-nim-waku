@@ -4,3 +4,5 @@
 - import_tasks: container.yml
 - import_tasks: query.yml
 - import_tasks: consul.yml
+- import_tasks: monitor.yml
+  when: nim_waku_monitor_enabled

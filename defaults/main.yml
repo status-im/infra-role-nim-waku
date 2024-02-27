@@ -112,7 +112,17 @@ consul_url: 'http://localhost:8500/v1/catalog'
 nim_waku_restart_condition: 'any'
 nim_waku_restart_window_sec: 120
 
+# container monitor service
+nim_waku_monitor_enabled: true
+nim_waku_monitor_meta_fields: ['image', 'commit', 'version']
+nim_waku_monitor_docker_events: ['stop', 'start', 'restart', 'die', 'kill']
+nim_waku_monitor_service_name: 'monitor-{{ nim_waku_cont_name }}'
+nim_waku_monitor_service_user: 'root'
+nim_waku_monitor_service_work_dir: '/etc/consul'
+nim_waku_monitor_script: '{{ nim_waku_cont_vol }}/monitor.sh'
+
 # Consul Service
+nim_waku_consul_config_name: '{{ nim_waku_cont_name | replace("-", "_") }}'
 nim_waku_consul_service_name: 'nim-waku'
 nim_waku_consul_success_before_passing: 0
 nim_waku_consul_failures_before_warning: 1

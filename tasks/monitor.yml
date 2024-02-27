@@ -1,0 +1,27 @@
+---
+- name: Create container monitor script
+  register: nim_waku_monitor_script_file
+  template:
+    src: 'monitor.sh.j2'
+    dest: '{{ nim_waku_monitor_script }}'
+    owner: dockremap
+    group: docker
+    mode: 0755
+
+- name: Create monitor systemd Unit file
+  register: nim_waku_monitor_service_file
+  template:
+    src: 'monitor.service.j2'
+    dest: '/etc/systemd/system/{{ nim_waku_monitor_service_name }}.service'
+    mode: 0644
+
+- name: Reload and restart the monitor service
+  systemd:
+    name: '{{ nim_waku_monitor_service_name }}.service'
+    daemon_reload: true
+    enabled: true
+    state: |-
+      {{ "re" if (
+        nim_waku_monitor_script_file.changed or
+        nim_waku_monitor_service_file.changed
+      ) else "" }}started

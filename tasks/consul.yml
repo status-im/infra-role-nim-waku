@@ -9,7 +9,10 @@
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'libp2p']
         meta:
           node_enode: '{{ nim_waku_libp2p_multiaddr | default("unknown") }}'
-          protocols: '{{ nim_waku_protocols_enabled | join(",") }}'
+          protocols:  '{{ nim_waku_protocols_enabled | join(",") }}'
+          image:      '{{ nim_waku_cont_image }}'
+          commit:     'unknown'
+          version:    'unknown'
         checks:
           - name: '{{ nim_waku_cont_name }}-health'
             type: 'tcp'
@@ -24,7 +27,10 @@
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'enr']
         meta:
           node_enode: '{{ nim_waku_libp2p_enr_uri | default("unknown") }}'
-          protocols: '{{ nim_waku_protocols_enabled | join(",") }}'
+          protocols:  '{{ nim_waku_protocols_enabled | join(",") }}'
+          image:      '{{ nim_waku_cont_image }}'
+          commit:     'unknown'
+          version:    'unknown'
 
       - id:   '{{ nim_waku_cont_name }}-metrics'
         name: '{{ nim_waku_consul_service_name }}-metrics'
@@ -61,7 +67,10 @@
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websocket']
         meta:
           node_enode: '/dns4/{{ nim_waku_websocket_domain | mandatory }}/tcp/{{ nim_waku_websock_port }}/wss/p2p/{{ nim_waku_peer_id }}'
-          protocols: '{{ nim_waku_protocols_enabled | join(",") }}'
+          protocols:  '{{ nim_waku_protocols_enabled | join(",") }}'
+          image:      '{{ nim_waku_cont_image }}'
+          commit:     'unknown'
+          version:    'unknown'
         checks:
           - name: '{{ nim_waku_cont_name }}-websocket-health'
             type: 'script'
@@ -100,7 +109,7 @@
 - name: 'Consul service definition - {{ nim_waku_cont_name }}'
   include_role: name=infra-role-consul-service
   vars:
-    consul_config_name: '{{ nim_waku_cont_name | replace("-", "_") }}'
-    consul_default_success_before_passing: '{{ nim_waku_consul_success_before_passing }}'
-    consul_default_failures_before_warning: '{{ nim_waku_consul_failures_before_warning }}'
+    consul_config_name:                      '{{ nim_waku_consul_config_name }}'
+    consul_default_success_before_passing:   '{{ nim_waku_consul_success_before_passing }}'
+    consul_default_failures_before_warning:  '{{ nim_waku_consul_failures_before_warning }}'
     consul_default_failures_before_critical: '{{ nim_waku_consul_failures_before_critical }}'

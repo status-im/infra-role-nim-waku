@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# vim: set ft=sh:
+
+CONSUL_SERVICE_FILE='/etc/consul/service_{{ nim_waku_consul_config_name }}.json'
+
+function event_loop () {
+    while read EVENT; do
+        echo "${EVENT}" | jq -c \
+            '{ time, commit: .Actor.Attributes.commit, Action }'
+        update_consul && reload_consul
+    done
+}
+
+function get_meta_attr() {
+    echo "${EVENT}" | jq -r ".Actor.Attributes.${1} // \"unknown\""
+}
+
+function update_service_json() {
+    # Uglier but MUCH less effort than using the API.
+    sed "${CONSUL_SERVICE_FILE}" \
+{% for field in nim_waku_monitor_meta_fields %}
+        -e 's#"{{ field }}": ".*"#"{{ field }}": "'$(get_meta_attr {{ field }})'"#' \
+{% endfor %}
+        | sponge "${CONSUL_SERVICE_FILE}" 
+}
+
+function update_consul () {
+    BEFORE=$(md5sum "${CONSUL_SERVICE_FILE}")
+    update_service_json
+    AFTER=$(md5sum "${CONSUL_SERVICE_FILE}")
+    # Avoid unnecessary reloads.
+    [[ "${BEFORE}" == "${AFTER}" ]] && return 1 || return 0
+}
+
+function reload_consul() {
+    echo "Changes detected, reloading Consul."
+    systemctl reload consul
+}
+
+docker system events \
+    --format='{% raw %}{{ json . }}{% endraw %}' \
+    --filter='container={{ nim_waku_cont_name }}' \
+{% for event in nim_waku_monitor_docker_events %}
+    --filter='event={{ event }}' \
+{% endfor %}
+    | event_loop

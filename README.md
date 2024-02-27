@@ -36,6 +36,11 @@ nim_waku_rest_apis_enabled: ['admin', 'private']
 ```
 For full docs see [API docs page](https://waku-org.github.io/waku-rest-api/).
 
+There's also a [container monitor service](./MONITOR.md).
+```yaml
+nim_waku_monitor_enabled: true
+```
+
 # Usage
 
 You can re-create containers on the host using:
