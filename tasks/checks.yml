@@ -1,0 +1,6 @@
+---
+- name: Check nim_waku_store_message_db_url for $ sign
+  assert:
+    that: "{{ not nim_waku_store_message_db_url | regex_search('\\$') }}"
+    fail_msg: "Do not use $ (dollar) sign in passwords: {{ nim_waku_store_message_db_url }}"
+    quiet: true
