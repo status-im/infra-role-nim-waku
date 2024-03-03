@@ -8,11 +8,16 @@
         address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'libp2p']
         meta:
-          node_enode: '{{ nim_waku_libp2p_multiaddr | default("unknown") }}'
-          protocols:  '{{ nim_waku_protocols_enabled | join(",") }}'
+          timestamp:  '{{ ansible_date_time.iso8601 }}'
+          protocols:  '{{ nim_waku_protocols_enabled   | join(",") }}'
+          enr:        '{{ nim_waku_libp2p_enr_uri      | default("unknown") }}'
+          multiaddr:  '{{ nim_waku_libp2p_multiaddr    | default("unknown") }}'
+          websocket:  '{{ nim_waku_websocket_multiaddr | default("missing") }}'
           image:      '{{ nim_waku_cont_image }}'
           commit:     'unknown'
           version:    'unknown'
+          # Legacy key used by fleets.status.im.
+          node_enode: '{{ nim_waku_libp2p_multiaddr | default("unknown") }}'
         checks:
           - name: '{{ nim_waku_cont_name }}-health'
             type: 'tcp'
@@ -26,6 +31,7 @@
         address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'enr']
         meta:
+          timestamp:  '{{ ansible_date_time.iso8601 }}'
           node_enode: '{{ nim_waku_libp2p_enr_uri | default("unknown") }}'
           protocols:  '{{ nim_waku_protocols_enabled | join(",") }}'
           image:      '{{ nim_waku_cont_image }}'
@@ -66,7 +72,8 @@
         address: '{{ ansible_host }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websocket']
         meta:
-          node_enode: '/dns4/{{ nim_waku_websocket_domain | mandatory }}/tcp/{{ nim_waku_websock_port }}/wss/p2p/{{ nim_waku_peer_id }}'
+          timestamp:  '{{ ansible_date_time.iso8601 }}'
+          node_enode: '{{ nim_waku_websocket_multiaddr }}'
           protocols:  '{{ nim_waku_protocols_enabled | join(",") }}'
           image:      '{{ nim_waku_cont_image }}'
           commit:     'unknown'

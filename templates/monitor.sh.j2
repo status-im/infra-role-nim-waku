@@ -3,6 +3,10 @@
 
 CONSUL_SERVICE_FILE='/etc/consul/service_{{ nim_waku_consul_config_name }}.json'
 
+function date_iso8691(){
+    date -u +"%Y-%m-%dT%H:%M:%SZ"
+}
+
 function event_loop () {
     while read EVENT; do
         echo "${EVENT}" | jq -c \
@@ -18,6 +22,7 @@ function get_meta_attr() {
 function update_service_json() {
     # Uglier but MUCH less effort than using the API.
     sed "${CONSUL_SERVICE_FILE}" \
+        -e 's#"timestamp": ".*"#"timestamp": "'$(date_iso8691)'"#' \
 {% for field in nim_waku_monitor_meta_fields %}
         -e 's#"{{ field }}": ".*"#"{{ field }}": "'$(get_meta_attr {{ field }})'"#' \
 {% endfor %}
