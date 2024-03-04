@@ -42,6 +42,7 @@ rln-relay-tree-path = '{{ nim_waku_rln_relay_tree_path }}'
 rln-relay-eth-contract-address = '{{ nim_waku_rln_relay_eth_contract_address }}'
 rln-relay-eth-client-address = '{{ nim_waku_rln_relay_eth_client_address | mandatory }}'
 {% endif %}
+{% endif %}
 
 {% if nim_waku_rest_enabled %}
 rest = true
@@ -51,7 +52,6 @@ rest-admin = {{ ("admin" in nim_waku_rest_apis_enabled) | bool | to_json }}
 rest-private = {{ ("private" in nim_waku_rest_apis_enabled) | bool | to_json }}
 {% endif %}
 
-{% endif %}
 {% if nim_waku_websocket_enabled %}
 websocket-port = {{ nim_waku_websock_port }}
 {% if nim_waku_websocket_secure_enabled %}
