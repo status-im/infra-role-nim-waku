@@ -4,6 +4,8 @@ nim_waku_cont_image: 'harbor.status.im/wakuorg/nwaku:{{ nim_waku_cont_tag }}'
 nim_waku_cont_name: 'nim-waku'
 nim_waku_cont_vol: '/docker/{{ nim_waku_cont_name }}'
 
+# Config
+nim_waku_node_conf_path: '{{ nim_waku_cont_vol }}/conf'
 # Node database path
 nim_waku_node_db_path: '{{ nim_waku_cont_vol }}/data'
 # TMPDIR for Sqlite to use when acuuming to free space. Takes effect on creation.

@@ -1,0 +1,28 @@
+---
+- name: 'Create db and config folders'
+  file:
+    dest: '{{ item }}'
+    state: 'directory'
+    owner: dockremap
+    group: docker
+    mode: 0775
+  with_items:
+    - '{{ nim_waku_node_conf_path }}'
+    - '{{ nim_waku_node_db_path }}'
+
+- name: Create node config file
+  register: nim_waku_config
+  template:
+    src:   'config.toml.j2'
+    dest:  '{{ nim_waku_node_conf_path }}/config.toml'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0755
+
+- name: Create script for calling REST API
+  template:
+    src:   'api.sh.j2'
+    dest:  '{{ nim_waku_cont_vol }}/api.sh'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0755

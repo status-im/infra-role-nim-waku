@@ -19,6 +19,7 @@ services:
     environment:
       SQLITE_TMPDIR: '{{ nim_waku_node_tmp_path }}'
     volumes:
+      - '{{ nim_waku_node_conf_path }}:/conf'
       - '{{ nim_waku_node_db_path }}:/data'
 {% if nim_waku_websocket_enabled %}
       - '{{ nim_waku_websocket_ssl_dir }}:{{ nim_waku_websocket_ssl_dir | mandatory }}'
@@ -35,84 +36,11 @@ services:
       interval: 30s
       retries: 3
     command: |
-{% if "v1" in nim_waku_cont_tag %}
-      --discovery={{ nim_waku_discovery_enabled }}
-{% else %}{# if "v1" in nim_waku_cont_tag #}
-{% for protocol in nim_waku_protocols_enabled|difference(nim_waku_protocols_available) %}
-      --{{ protocol }}=false
-{% endfor %}
-{% for protocol in nim_waku_protocols_enabled %}
-      --{{ protocol }}=true
-{% endfor %}
-      --peer-persistence={{ nim_waku_peer_persistence | to_json }}
-      --keep-alive={{ nim_waku_keep_alive | to_json }}
-      --max-connections={{ nim_waku_p2p_max_connections }}
-      --dns4-domain-name={{ nim_waku_dns4_domain_name }}
-{% for topic in nim_waku_pubsub_topics %}
-      --pubsub-topic='{{ topic }}'
-{% endfor %}
-{% for protected_topic in nim_waku_protected_topics %}
-      --protected-topic='{{ protected_topic | mandatory }}'
-{% endfor %}
-{% if "store" in nim_waku_protocols_enabled %}
-      --store-message-db-url={{ nim_waku_store_message_db_url }}
-      --store-message-db-vacuum={{ nim_waku_store_vacuum | to_json }}
-      --store-message-retention-policy={{ nim_waku_store_message_retention_policy }}
-{% endif %}
-{% if "rln-relay" in nim_waku_protocols_enabled %}
-      --rln-relay-dynamic={{ nim_waku_rln_relay_dynamic }}
-      --rln-relay-tree-path={{ nim_waku_rln_relay_tree_path }}
-{% if nim_waku_rln_relay_dynamic %}
-      --rln-relay-eth-contract-address={{ nim_waku_rln_relay_eth_contract_address }}
-      --rln-relay-eth-client-address={{ nim_waku_rln_relay_eth_client_address | mandatory }}
-{% endif -%}
-{% endif -%}
-{% if nim_waku_websocket_enabled %}
-      --websocket-port={{ nim_waku_websock_port }}
-{% if nim_waku_websocket_secure_enabled %}
-      --websocket-secure-support=true
-      --websocket-secure-key-path={{ nim_waku_websocket_ssl_key | mandatory }}
-      --websocket-secure-cert-path={{ nim_waku_websocket_ssl_cert | mandatory }}
-{% endif %}
-{% endif %}
-{% if nim_waku_dns_disc_enabled %}
-      --dns-discovery=true
-      --dns-discovery-url={{ nim_waku_dns_disc_url | mandatory }}
-{% endif %}
-{% if nim_waku_disc_v5_enabled %}
-      --discv5-discovery=true
-      --discv5-udp-port={{ nim_waku_disc_v5_port }}
-      --discv5-enr-auto-update={{ nim_waku_disc_v5_enr_auto_update }}
-{% for node in nim_waku_disc_v5_bootstrap_nodes %}
-      --discv5-bootstrap-node={{ node }}
-{% endfor %}
-{% endif %}
-{% endif %}{# if "v1" in nim_waku_cont_tag #}
+      --config-file=/conf/config.toml
+{# WARNING: Keep sensitive information in Docker Compose file. #}
 {% if nim_waku_node_key is defined %}
       --nodekey={{ nim_waku_node_key }}
 {% endif %}
-{% if nim_waku_cluster_id is defined %}
-      --cluster-id={{ nim_waku_cluster_id }}
-{% endif %}
-{% if nim_waku_max_msg_size is defined %}
-      --max-msg-size={{ nim_waku_max_msg_size }}
-{% endif %}
-{% if nim_waku_ip_colocation_limit is defined %}
-      --ip-colocation-limit={{ nim_waku_ip_colocation_limit }}
-{% endif %}
-      --nat=extip:{{ nim_waku_public_address }}
-      --log-level={{ nim_waku_log_level | upper }}
-      --tcp-port={{ nim_waku_p2p_tcp_port }}
-      --rest={{ nim_waku_rest_enabled }}
-{% if nim_waku_rest_enabled %}
-      --rest-address=0.0.0.0
-      --rest-port={{ nim_waku_rest_port }}
-      --rest-admin={{ "admin" in nim_waku_rest_apis_enabled }}
-      --rest-private={{ "private" in nim_waku_rest_apis_enabled }}
-{% endif %}
-      --metrics-server={{ nim_waku_metrics_enabled }}
-      --metrics-server-port={{ nim_waku_metrics_port }}
-      --metrics-server-address=0.0.0.0
-{% if nim_waku_relay_shard_manager is defined %}
-      --relay-shard-manager={{ nim_waku_relay_shard_manager }}
+{% if "store" in nim_waku_protocols_enabled %}
+      --store-message-db-url={{ nim_waku_store_message_db_url }}
 {% endif %}

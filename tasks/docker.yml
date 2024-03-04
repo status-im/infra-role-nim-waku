@@ -1,11 +1,14 @@
 ---
-- name: 'Create data folder'
+- name: 'Create db and config folders'
   file:
-    dest: '{{ nim_waku_node_db_path }}'
+    dest: '{{ item }}'
     state: 'directory'
     owner: dockremap
     group: docker
     mode: 0775
+  with_items:
+    - '{{ nim_waku_node_conf_path }}'
+    - '{{ nim_waku_node_db_path }}'
 
 - name: Create script for calling REST API
   template:
@@ -28,7 +31,7 @@
     project_src: '{{ nim_waku_cont_vol }}'
     pull: true
     state: '{{ compose_state }}'
-    restarted: '{{ compose_restart }}'
+    restarted: '{{ true if nim_waku_config.changed else compose_restart }}'
     recreate: '{{ compose_recreate }}'
     # Avoid deprecation warning
     tls_hostname: 'localhost'
