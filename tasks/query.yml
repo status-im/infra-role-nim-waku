@@ -27,7 +27,7 @@
       | reject("contains", "/ws") | first }}
 
 - name: Extract LibP2P WS address from list
-  when: nim_waku_websocket_enabled or nim_waku_websockify_enabled
+  when: nim_waku_websocket_enabled
   set_fact:
     nim_waku_libp2p_websocket: |-
       {{ waku_info.json.listenAddresses

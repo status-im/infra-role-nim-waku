@@ -93,18 +93,6 @@ nim_waku_websocket_domain: '{{ nim_waku_dns4_domain_name }}'
 #nim_waku_websocket_ssl_cert: '/etc/letsencrypt/live/{{ nim_waku_websocket_domain }}/fullchain.pem'
 #nim_waku_websocket_ssl_key: '/etc/letsencrypt/live/{{ nim_waku_websocket_domain }}/privkey.pem'
 
-# WebSockets via Websockify
-nim_waku_websockify_enabled: false
-nim_waku_websockify_verbose: false
-nim_waku_websockify_cont_name: 'websockify'
-nim_waku_websockify_cont_tag: 'v0.10.0'
-nim_waku_websockify_cont_image: 'statusteam/websockify:{{ nim_waku_websockify_cont_tag }}'
-nim_waku_websockify_cont_port: 8080
-nim_waku_websockify_domain: '{{ nim_waku_dns4_domain_name }}'
-#nim_waku_websockify_ssl_dir: ~
-#nim_waku_websockify_ssl_cert: ~
-#nim_waku_websockify_ssl_key: ~
-
 # For querying for fleet peers
 consul_url: 'http://localhost:8500/v1/catalog'
 

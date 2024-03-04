@@ -87,31 +87,10 @@
             # https://github.com/status-im/nwaku/issues/1186
             disabled: true
 
-- name: Define Websockify service
-  when: nim_waku_websockify_enabled
-  set_fact:
-    consul_service_websockify:
-      - id:   '{{ nim_waku_cont_name }}-websockify'
-        name: '{{ nim_waku_consul_service_name }}-websockify'
-        port: '{{ nim_waku_websockify_cont_port }}'
-        address: '{{ ansible_host }}'
-        tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'websockify']
-        meta:
-          node_enode: '/dns4/{{ nim_waku_websockify_domain | mandatory }}/tcp/{{ nim_waku_websockify_cont_port }}/wss/p2p/{{ nim_waku_peer_id }}'
-        checks:
-          - name: '{{ nim_waku_cont_name }}-websockify-health'
-            type: 'script'
-            script: 'websocat -vk1E wss://127.0.0.1:{{ nim_waku_websockify_cont_port }}'
-
 - name: Add Websocket Consul service
   when: nim_waku_websocket_enabled
   set_fact:
     consul_services: '{{ consul_services + consul_service_websocket }}'
-
-- name: Add Websockify Consul service
-  when: nim_waku_websockify_enabled
-  set_fact:
-    consul_services: '{{ consul_services + consul_service_websockify }}'
 
 - name: 'Consul service definition - {{ nim_waku_cont_name }}'
   include_role: name=infra-role-consul-service
