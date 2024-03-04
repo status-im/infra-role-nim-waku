@@ -78,7 +78,7 @@ discv5-bootstrap-node = ['{{ nim_waku_disc_v5_bootstrap_nodes | join("', '") }}'
 cluster-id = {{ nim_waku_cluster_id }}
 {% endif %}
 {% if nim_waku_ip_colocation_limit is defined %}
-ip-colocation-limit = '{{ nim_waku_ip_colocation_limit }}'
+ip-colocation-limit = {{ nim_waku_ip_colocation_limit }}
 {% endif %}
 {% if nim_waku_relay_shard_manager is defined %}
 relay-shard-manager = {{ nim_waku_relay_shard_manager | to_json }}
