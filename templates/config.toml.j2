@@ -23,12 +23,16 @@ max-connections = {{ nim_waku_p2p_max_connections }}
 max-msg-size = '{{ nim_waku_max_msg_size }}'
 {% endif %}
 
-{% if nim_waku_pubsub_topics != [] %}
-pubsub-topic = ['{{ nim_waku_pubsub_topics | join("', '") }}']
-{% endif %}
-{% if nim_waku_protected_topics != [] %}
-protected-topic = ['{{ nim_waku_protected_topics | join("', '") }}']
-{% endif %}
+pubsub-topic = [
+{% for topic in nim_waku_pubsub_topics %}
+  '{{ topic }}',
+{% endfor %}
+]
+protected-topic = [
+{% for topic in nim_waku_protected_topics %}
+  '{{ topic }}',
+{% endfor %}
+]
 
 {% if "store" in nim_waku_protocols_enabled %}
 store-message-db-vacuum = {{ nim_waku_store_vacuum | to_json }}
@@ -69,9 +73,11 @@ dns-discovery-url = '{{ nim_waku_dns_disc_url | mandatory }}'
 discv5-discovery = true
 discv5-udp-port = {{ nim_waku_disc_v5_port }}
 discv5-enr-auto-update = {{ nim_waku_disc_v5_enr_auto_update | to_json }}
-{% if nim_waku_disc_v5_bootstrap_nodes != [] %}
-discv5-bootstrap-node = ['{{ nim_waku_disc_v5_bootstrap_nodes | join("', '") }}']
-{% endif %}
+discv5-bootstrap-node = [
+{% for node in nim_waku_disc_v5_bootstrap_nodes %}
+  '{{ node }}',
+{% endfor %}
+]
 {% endif %}
 
 {% if nim_waku_cluster_id is defined %}
