@@ -11,10 +11,6 @@ nat = 'extip:{{ nim_waku_public_address }}'
 log-level = '{{ nim_waku_log_level | upper }}'
 tcp-port = {{ nim_waku_p2p_tcp_port }}
 
-metrics-server = {{ nim_waku_metrics_enabled | to_json }}
-metrics-server-port = {{ nim_waku_metrics_port }}
-metrics-server-address = '0.0.0.0'
-
 peer-persistence = {{ nim_waku_peer_persistence | to_json }}
 keep-alive = {{ nim_waku_keep_alive | to_json }}
 dns4-domain-name = '{{ nim_waku_dns4_domain_name }}'
@@ -47,6 +43,10 @@ rln-relay-eth-contract-address = '{{ nim_waku_rln_relay_eth_contract_address }}'
 rln-relay-eth-client-address = '{{ nim_waku_rln_relay_eth_client_address | mandatory }}'
 {% endif %}
 {% endif %}
+
+metrics-server = {{ nim_waku_metrics_enabled | to_json }}
+metrics-server-port = {{ nim_waku_metrics_port }}
+metrics-server-address = '0.0.0.0'
 
 {% if nim_waku_rest_enabled %}
 rest = true
