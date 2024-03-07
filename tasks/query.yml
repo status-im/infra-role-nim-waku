@@ -41,3 +41,8 @@
   when: nim_waku_websocket_enabled
   set_fact:
     nim_waku_websocket_multiaddr: '/dns4/{{ nim_waku_websocket_domain | mandatory }}/tcp/{{ nim_waku_websock_port }}/wss/p2p/{{ nim_waku_peer_id }}'
+
+- name: Gather container info
+  docker_container_info:
+    name: '{{ nim_waku_cont_name }}'
+  register: nim_waku_cont

@@ -14,8 +14,8 @@
           multiaddr:  '{{ nim_waku_libp2p_multiaddr    | default("unknown") }}'
           websocket:  '{{ nim_waku_websocket_multiaddr | default("missing") }}'
           image:      '{{ nim_waku_cont_image }}'
-          commit:     'unknown'
-          version:    'unknown'
+          commit:     '{{ nim_waku_cont.container.Config.Labels.commit  | default("unknown") }}'
+          version:    '{{ nim_waku_cont.container.Config.Labels.version | default("unknown") }}'
           # Legacy key used by fleets.status.im.
           node_enode: '{{ nim_waku_libp2p_multiaddr | default("unknown") }}'
         checks:
@@ -35,8 +35,8 @@
           node_enode: '{{ nim_waku_libp2p_enr_uri | default("unknown") }}'
           protocols:  '{{ nim_waku_protocols_enabled | join(",") }}'
           image:      '{{ nim_waku_cont_image }}'
-          commit:     'unknown'
-          version:    'unknown'
+          commit:     '{{ nim_waku_cont.container.Config.Labels.commit  | default("unknown") }}'
+          version:    '{{ nim_waku_cont.container.Config.Labels.version | default("unknown") }}'
 
       - id:   '{{ nim_waku_cont_name }}-metrics'
         name: '{{ nim_waku_consul_service_name }}-metrics'
@@ -76,8 +76,8 @@
           node_enode: '{{ nim_waku_websocket_multiaddr }}'
           protocols:  '{{ nim_waku_protocols_enabled | join(",") }}'
           image:      '{{ nim_waku_cont_image }}'
-          commit:     'unknown'
-          version:    'unknown'
+          commit:     '{{ nim_waku_cont.container.Config.Labels.commit  | default("unknown") }}'
+          version:    '{{ nim_waku_cont.container.Config.Labels.version | default("unknown") }}'
         checks:
           - name: '{{ nim_waku_cont_name }}-websocket-health'
             type: 'script'
