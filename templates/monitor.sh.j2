@@ -11,7 +11,7 @@ function event_loop () {
     while read EVENT; do
         echo "${EVENT}" | jq -c \
             '{ time, commit: .Actor.Attributes.commit, Action }'
-        update_consul && reload_consul
+        update_consul && { update_service_timestamp; reload_consul; }
     done
 }
 
@@ -22,12 +22,17 @@ function get_meta_attr() {
 function update_service_json() {
     # Uglier but MUCH less effort than using the API.
     sed "${CONSUL_SERVICE_FILE}" \
-        -e 's#"timestamp": ".*"#"timestamp": "'$(date_iso8691)'"#' \
 {% for field in nim_waku_monitor_meta_fields %}
         -e 's#"{{ field }}": ".*"#"{{ field }}": "'$(get_meta_attr {{ field }})'"#' \
 {% endfor %}
         | sponge "${CONSUL_SERVICE_FILE}" 
 }
+
+function update_service_timestamp() {
+    sed "${CONSUL_SERVICE_FILE}" \
+        -e 's#"timestamp": ".*"#"timestamp": "'$(date_iso8691)'"#' \
+        | sponge "${CONSUL_SERVICE_FILE}" 
+  }
 
 function update_consul () {
     BEFORE=$(md5sum "${CONSUL_SERVICE_FILE}")
