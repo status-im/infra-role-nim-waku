@@ -1,15 +1,4 @@
 ---
-- name: 'Create db and config folders'
-  file:
-    dest: '{{ item }}'
-    state: 'directory'
-    owner: dockremap
-    group: docker
-    mode: 0775
-  with_items:
-    - '{{ nim_waku_node_conf_path }}'
-    - '{{ nim_waku_node_db_path }}'
-
 - name: Create script for calling REST API
   template:
     src: 'api.sh.j2'
