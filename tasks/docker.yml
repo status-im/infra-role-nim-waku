@@ -1,12 +1,4 @@
 ---
-- name: Create script for calling REST API
-  template:
-    src: 'api.sh.j2'
-    dest: '{{ nim_waku_cont_vol }}/api.sh'
-    owner: dockremap
-    group: docker
-    mode: 0755
-
 - name: 'Create compose file: {{ nim_waku_cont_name }}'
   template:
     src: 'docker-compose.yml.j2'
