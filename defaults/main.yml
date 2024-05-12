@@ -114,6 +114,9 @@ nim_waku_monitor_script: '{{ nim_waku_cont_vol }}/monitor.sh'
 # Consul Service
 nim_waku_consul_config_name: '{{ nim_waku_cont_name | replace("-", "_") }}'
 nim_waku_consul_service_name: 'nim-waku'
+nim_waku_consul_check_disabled: false
+nim_waku_consul_check_interval: '60s'
+nim_waku_consul_check_timeout: '5s'
 nim_waku_consul_success_before_passing: 0
 nim_waku_consul_failures_before_warning: 1
 nim_waku_consul_failures_before_critical: 2

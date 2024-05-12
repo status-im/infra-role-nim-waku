@@ -96,6 +96,9 @@
   include_role: name=infra-role-consul-service
   vars:
     consul_config_name:                      '{{ nim_waku_consul_config_name }}'
+    consul_default_check_disabled:           '{{ nim_waku_consul_check_disabled }}'
+    consul_default_check_interval:           '{{ nim_waku_consul_check_interval }}'
+    consul_default_check_timeout:            '{{ nim_waku_consul_check_timeout }}'
     consul_default_success_before_passing:   '{{ nim_waku_consul_success_before_passing }}'
     consul_default_failures_before_warning:  '{{ nim_waku_consul_failures_before_warning }}'
     consul_default_failures_before_critical: '{{ nim_waku_consul_failures_before_critical }}'
