@@ -8,11 +8,8 @@
     mode: 0664
 
 - name: 'Create container: {{ nim_waku_cont_name }}'
-  docker_compose:
+  community.docker.docker_compose_v2:
     project_src: '{{ nim_waku_cont_vol }}'
-    pull: true
-    state: '{{ compose_state }}'
-    restarted: '{{ true if nim_waku_config.changed else compose_restart }}'
     recreate: '{{ compose_recreate }}'
-    # Avoid deprecation warning
-    tls_hostname: 'localhost'
+    pull: '{{ compose_pull }}'
+    state: '{{ "restarted" if nim_waku_config.changed else compose_state }}'

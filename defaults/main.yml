@@ -122,6 +122,6 @@ nim_waku_consul_failures_before_warning: 1
 nim_waku_consul_failures_before_critical: 2
 
 # general container management
-compose_recreate: 'smart'
+compose_recreate: 'auto'
 compose_state: 'present'
-compose_restart: false
+compose_pull: 'always'
