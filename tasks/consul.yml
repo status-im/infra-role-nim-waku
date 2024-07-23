@@ -10,6 +10,7 @@
         meta:
           timestamp:  '{{ ansible_date_time.iso8601 }}'
           protocols:  '{{ nim_waku_protocols_enabled   | join(",") }}'
+          enrtree:    '{{ nim_waku_dns_disc_url        | default("missing") }}'
           enr:        '{{ nim_waku_libp2p_enr_uri      | default("unknown") }}'
           multiaddr:  '{{ nim_waku_libp2p_multiaddr    | default("unknown") }}'
           websocket:  '{{ nim_waku_websocket_multiaddr | default("missing") }}'
@@ -41,7 +42,7 @@
       - id:   '{{ nim_waku_cont_name }}-metrics'
         name: '{{ nim_waku_consul_service_name }}-metrics'
         port: '{{ nim_waku_metrics_port }}'
-        address: '{{ ansible_local.wireguard.vpn_ip }}'
+        address: '{{ ansible_local.wireguard.address }}'
         tags: ['env:{{ env }}', 'stage:{{ stage }}', 'nim', 'waku', 'metrics']
         meta:
           container: '{{ nim_waku_cont_name }}'
