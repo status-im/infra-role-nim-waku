@@ -42,5 +42,5 @@ services:
       --nodekey={{ nim_waku_node_key }}
 {% endif %}
 {% if "store" in nim_waku_protocols_enabled %}
-      --store-message-db-url={{ nim_waku_store_message_db_url }}
+      --store-message-db-url='{{ nim_waku_store_message_db_url }}'
 {% endif %}
