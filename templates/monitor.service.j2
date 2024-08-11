@@ -1,8 +1,7 @@
 [Unit]
-Description=Container state monitor for {{ nim_waku_cont_name }})
+Description=Container state monitor for {{ nim_waku_cont_name }}
 Documentation=https://github.com/status-im/infra-role-nim-waku
 Requires=docker.service consul.service
-After=docker.service consul.service
 
 [Service]
 User={{ nim_waku_monitor_service_user }}
