@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+# Script to run the waku node
+
+
+## launch the node
+
+exec /usr/bin/wakunode\
+      --config-file=/conf/config.toml
+{# WARNING: Keep sensitive information in run-node.sh. #}
+{% if nim_waku_node_key is defined %}
+      --nodekey={{ nim_waku_node_key }}
+{% endif %}
+{% if "store" in nim_waku_protocols_enabled %}
+      --store-message-db-url='{{ nim_waku_store_message_db_url }}'
+{% endif %}

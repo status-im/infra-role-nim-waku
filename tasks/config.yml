@@ -26,3 +26,11 @@
     owner: 'dockremap'
     group: 'docker'
     mode:  0755
+
+- name: Create script to run node
+  template:
+    src: 'run-node.sh.j2'
+    dest: '{{ nim_waku_cont_vol }}/run-node.sh'
+    owner: 'dockremap'
+    group: 'docker'
+    mode: 0755
