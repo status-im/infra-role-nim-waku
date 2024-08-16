@@ -76,6 +76,11 @@ nim_waku_rln_relay_eth_account_address: '000000000000000000000000000000000000000
 nim_waku_rln_relay_eth_contract_address: '0xF471d71E9b1455bBF4b85d475afb9BB0954A29c4'
 #nim_waku_rln_relay_eth_client_address: 'http://geth.example.org:8545'
 #nim_waku_relay_shard_manager: false
+# RLN Keystore parameters
+nim_waku_rln_keystore_active: false
+nim_waku_rln_keystore_path:  '/data/keystore/keystore.json'
+#nim_waku_rln_account_key:   'PrivateKey'
+#nim_waku_rln_cred_password: 'ChangeMeIfYouCare'
 
 # metrics are disabled by default
 nim_waku_metrics_enabled: true
