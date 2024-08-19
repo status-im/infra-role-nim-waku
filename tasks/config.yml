@@ -9,6 +9,7 @@
   with_items:
     - '{{ nim_waku_node_conf_path }}'
     - '{{ nim_waku_node_db_path }}'
+    - '{{ nim_waku_node_keystore_path }}'
 
 - name: Create node config file
   register: nim_waku_config
@@ -27,10 +28,10 @@
     group: 'docker'
     mode:  0755
 
-- name: Create script to run node
+- name: Create node Docker entrypoint
   template:
-    src: 'run-node.sh.j2'
-    dest: '{{ nim_waku_cont_vol }}/run-node.sh'
+    src: 'entrypoint.sh.j2'
+    dest: '{{ nim_waku_cont_vol }}/entrypoint.sh'
     owner: 'dockremap'
     group: 'docker'
     mode: 0755

@@ -20,7 +20,7 @@ services:
     volumes:
       - '{{ nim_waku_node_conf_path }}:/conf'
       - '{{ nim_waku_node_db_path }}:/data'
-      - '{{ nim_waku_cont_vol }}/run-node.sh:/opt/run-node.sh:Z'
+      - '{{ nim_waku_cont_vol }}/entrypoint.sh:/opt/entrypoint.sh:Z'
 {% if nim_waku_websocket_enabled %}
       - '{{ nim_waku_websocket_ssl_dir }}:{{ nim_waku_websocket_ssl_dir | mandatory }}'
 {% endif %}
@@ -35,5 +35,18 @@ services:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:{{ nim_waku_metrics_port }}/health"]
       interval: 30s
       retries: 3
-    command: '/opt/run-node.sh'
+    entrypoint: /opt/entrypoint.sh
+    command: |
+      --config-file=/conf/config.toml
+{# WARNING: Keep sensitive information in Docker Compose file. #}
+{% if nim_waku_node_key is defined %}
+      --nodekey={{ nim_waku_node_key }}
+{% endif %}
+{% if "store" in nim_waku_protocols_enabled %}
+      --store-message-db-url='{{ nim_waku_store_message_db_url }}'
+{% endif %}
+{% if nim_waku_rln_keystore_active %}
+      --rln-relay-cred-password='{{ nim_waku_rln_cred_password | mandatory }}'
+{% endif %}
+
       
