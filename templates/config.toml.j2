@@ -99,3 +99,10 @@ rln-relay-eth-client-address = '{{ nim_waku_rln_relay_eth_client_address | manda
 rln-relay-cred-path = '{{ nim_waku_rln_keystore_path }}'
 {% endif %}
 {% endif %}
+
+
+{% if "store-sync" in nim_waku_protocols_enabled %}
+store-sync-interval = {{ nim_waku_store_sync_interval }}
+store-sync-range = {{ nim_waku_store_sync_range }}
+{% endif %}
+
