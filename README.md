@@ -32,7 +32,7 @@ REST API is avalable to inspect the node and use protocols:
 nim_waku_rest_enabled: true
 nim_waku_rest_addr: '127.0.0.1'
 nim_waku_rest_port: 8645
-nim_waku_rest_apis_enabled: ['admin', 'private']
+nim_waku_rest_apis_enabled: ['admin']
 ```
 For full docs see [API docs page](https://waku-org.github.io/waku-rest-api/).
 

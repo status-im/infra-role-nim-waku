@@ -61,7 +61,6 @@ rest = true
 rest-address = '0.0.0.0'
 rest-port = {{ nim_waku_rest_port }}
 rest-admin = {{ ("admin" in nim_waku_rest_apis_enabled) | bool | to_json }}
-rest-private = {{ ("private" in nim_waku_rest_apis_enabled) | bool | to_json }}
 {% endif %}
 
 {% if nim_waku_websocket_enabled %}
