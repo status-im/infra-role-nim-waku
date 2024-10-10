@@ -85,7 +85,7 @@ nim_waku_rln_keystore_path:  '/data/keystore/keystore.json'
 #nim_waku_rln_cred_password: 'ChangeMeIfYouCare'
 
 # Store Sync
-nim_waku_store_sync_interva:  300
+nim_waku_store_sync_interval:  300
 nim_waku_store_sync_range:    3600
 
 # metrics are disabled by default
