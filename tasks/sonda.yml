@@ -1,0 +1,72 @@
+---
+- name: 'Create sonda conf folder'
+  file:
+    dest: '{{ nim_waku_sonda_cont_vol }}'
+    state: 'directory'
+    owner: dockremap
+    group: docker
+    mode: 0775
+
+- name: Create Sonda compose file, dockerfile and sonda script
+  template:
+    src:   '{{ item }}.j2'
+    dest:  '{{ nim_waku_sonda_cont_vol }}/{{ item }}'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0644
+  with_items:
+    - "docker-compose-sonda.yml"
+    - "sonda.py"
+    - "Dockerfile.sonda"
+
+# We need to fetch fleet data in order to have store nodes value with peer ID
+- name: Fetch fleet data
+  uri:
+    url: "https://fleets.status.im/"
+    method: GET
+    return_content: yes
+    status_code: 200
+  register: fleet_data
+
+- name: Parse fleet JSON and select store nodes within fleet and DC
+  set_fact:
+    sonda_store_nodes: "{{ fleet_data.json.fleets[domain_key]['tcp/p2p/waku'] | dict2items | selectattr('key', 'search', '^store') | selectattr('key', 'search', datacenter) | map(attribute='value') | join(',')  }}"
+  vars:
+    domain_key: "{{ nim_waku_dns4_domain_name.split('.')[2] + '.' + nim_waku_dns4_domain_name.split('.')[3] }}"
+    datacenter: "{{ nim_waku_dns4_domain_name.split('.')[1] }}"
+
+- name: Create Sonda environment file
+  template:
+    src:   'sonda.env.j2'
+    dest:  '{{ nim_waku_sonda_cont_vol }}/sonda.env'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0644
+
+- name: 'Create container: {{ nim_waku_sonda_cont_name }}'
+  community.docker.docker_compose_v2:
+    project_src: '{{ nim_waku_sonda_cont_vol }}'
+    files: [ "docker-compose-sonda.yml" ]
+    build: 'always'
+    pull: 'never'
+    state: '{{ "present" }}'
+
+# The healthcheck is done on only endpoint which doesn't return metrics
+# https://prometheus.github.io/client_python/exporting/http/#supported-http-methods
+- name: Create Consul service definition
+  include_role: name=infra-role-consul-service
+  vars:
+    consul_config_name: '{{ nim_waku_sonda_service_name }}'
+    consul_services:
+      - id:      '{{ nim_waku_sonda_service_name }}'
+        name:    '{{ nim_waku_sonda_service_name }}'
+        port:    '{{ nim_waku_sonda_metrics_port }}'
+        address: '{{ ansible_local.wireguard.vpn_ip }}'
+        tags: ['sonda', 'metrics', 'nim-waku']
+        meta:
+          container: '{{ nim_waku_sonda_cont_name }}'
+        checks:
+          - id: '{{ nim_waku_sonda_service_name }}-health'
+            name: 'Sonda Service Healthcheck'
+            type: 'http'
+            http: 'http://localhost:{{ nim_waku_sonda_metrics_port }}/favicon.ico'

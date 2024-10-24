@@ -1,0 +1,16 @@
+---
+services:
+  sonda:
+    container_name: '{{ nim_waku_sonda_cont_name }}'
+    build:
+      context: .
+      dockerfile: Dockerfile.sonda
+    ports:
+      - {{ nim_waku_sonda_metrics_port }}:{{ nim_waku_sonda_metrics_port }}
+    env_file: "sonda.env"
+    networks:
+      - {{ nim_waku_cont_name }}_default
+
+networks:
+  {{ nim_waku_cont_name }}_default:
+    external: true

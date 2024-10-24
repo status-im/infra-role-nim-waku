@@ -122,6 +122,13 @@ nim_waku_monitor_service_user: 'root'
 nim_waku_monitor_service_work_dir: '/etc/consul'
 nim_waku_monitor_script: '{{ nim_waku_cont_vol }}/monitor.sh'
 
+# Store protocol healthcheck - Sonda
+nim_waku_sonda_enabled: false
+nim_waku_sonda_cont_name: "sonda"
+nim_waku_sonda_cont_vol: '/docker/{{ nim_waku_sonda_cont_name }}'
+nim_waku_sonda_metrics_port: 8004
+nim_waku_sonda_service_name: "sonda"
+
 # Consul Service
 nim_waku_consul_config_name: '{{ nim_waku_cont_name | replace("-", "_") }}'
 nim_waku_consul_service_name: 'nim-waku'

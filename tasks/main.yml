@@ -8,3 +8,5 @@
 - import_tasks: consul.yml
 - import_tasks: monitor.yml
   when: nim_waku_monitor_enabled
+- import_tasks: sonda.yml
+  when: nim_waku_sonda_enabled
