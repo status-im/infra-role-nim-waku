@@ -49,4 +49,6 @@ services:
       --rln-relay-cred-password='{{ nim_waku_rln_cred_password | mandatory }}'
 {% endif %}
 
-      
+networks:
+  default:
+    name: '{{ nim_waku_cont_network }}'
