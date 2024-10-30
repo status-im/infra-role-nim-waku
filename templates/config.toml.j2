@@ -37,9 +37,9 @@ pubsub-topic = [
   '{{ topic }}',
 {% endfor %}
 ]
-protected-topic = [
-{% for topic in nim_waku_protected_topics %}
-  '{{ topic }}',
+protected-shard = [
+{% for shard in nim_waku_protected_shards %}
+  '{{ shard }}',
 {% endfor %}
 ]
 
