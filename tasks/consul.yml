@@ -61,7 +61,7 @@
         checks:
           - id: '{{ nim_waku_cont_name }}-rest-health'
             type: 'http'
-            http: 'http://localhost:{{ nim_waku_rest_port }}/debug/v1/version'
+            http: 'http://localhost:{{ nim_waku_rest_port }}/health'
 
 - name: Define Websocket service
   when: nim_waku_websocket_enabled
