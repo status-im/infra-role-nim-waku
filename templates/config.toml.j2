@@ -37,6 +37,11 @@ shard = [
   {{ nws }},
 {% endfor %}
 ]
+shard = [
+{% for nws in nim_waku_shards %}
+  {{ nws }},
+{% endfor %}
+]
 protected-shard = [
 {% for shard in nim_waku_protected_shards %}
   '{{ shard }}',
