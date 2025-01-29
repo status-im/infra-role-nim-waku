@@ -32,9 +32,17 @@ cluster-id = {{ nim_waku_cluster_id }}
 {% if nim_waku_relay_shard_manager is defined %}
 relay-shard-manager = {{ nim_waku_relay_shard_manager | to_json }}
 {% endif %}
+
+# pubsub-topic is deprecated and we need to remove the next once we
+# make sure the nodes run well with shard's param
 pubsub-topic = [
 {% for topic in nim_waku_pubsub_topics %}
   '{{ topic }}',
+{% endfor %}
+]
+shard = [
+{% for nws in nim_waku_shards %}
+  {{ nws }},
 {% endfor %}
 ]
 protected-shard = [
