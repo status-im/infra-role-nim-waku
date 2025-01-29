@@ -27,8 +27,6 @@ nim_waku_protocols_available: ['relay', 'store', 'filter', 'lightpush', 'rln-rel
 nim_waku_protocols_enabled: ['relay', 'store', 'filter', 'lightpush']
 
 # Topic configuration
-# 'nim_waku_pubsub_topics' is deprecated in favor of 'nim_waku_shards'
-nim_waku_pubsub_topics: ['/waku/2/default-waku/proto']
 nim_waku_shards: [0, 1, 2, 3, 4, 5, 6, 7]
 
 # Shards and its public key to be used for message validation.
