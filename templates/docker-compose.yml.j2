@@ -36,6 +36,7 @@ services:
       interval: 30s
       retries: 3
     entrypoint: /opt/entrypoint.sh
+    restart: 'always'
     command: |
       --config-file=/conf/config.toml
 {# WARNING: Keep sensitive information in Docker Compose file. #}
