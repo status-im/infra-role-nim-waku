@@ -6,8 +6,8 @@
 if test -f {{ nim_waku_rln_keystore_path }}; then
   echo "keystore/keystore.json already exists. Skipping the RLN registration."
 else
-
   ## Performs the RLN registration if the keystore.json credentials file does not exist
+  mkdir -p $(dirname {{ nim_waku_rln_keystore_path }})
   exec /usr/bin/wakunode generateRlnKeystore \
       --rln-relay-eth-client-address={{ nim_waku_rln_relay_eth_client_address }} \
       --rln-relay-eth-private-key={{ nim_waku_rln_account_key | mandatory }} \
