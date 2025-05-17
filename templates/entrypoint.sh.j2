@@ -9,7 +9,13 @@ else
   ## Performs the RLN registration if the keystore.json credentials file does not exist
   mkdir -p $(dirname {{ nim_waku_rln_keystore_path }})
   exec /usr/bin/wakunode generateRlnKeystore \
-      --rln-relay-eth-client-address={{ nim_waku_rln_relay_eth_client_address }} \
+{% if nim_waku_rln_relay_eth_client_address is string %}
+      --rln-relay-eth-client-address='{{ nim_waku_rln_relay_eth_client_address }}' \
+{% else %}
+{% for address in nim_waku_rln_relay_eth_client_address %}
+      --rln-relay-eth-client-address={{ address }} \
+{% endfor %}
+{% endif %}
       --rln-relay-eth-private-key={{ nim_waku_rln_account_key | mandatory }} \
       --rln-relay-eth-contract-address={{nim_waku_rln_relay_eth_contract_address}} \
       --rln-relay-cred-path='{{ nim_waku_rln_keystore_path }}' \
