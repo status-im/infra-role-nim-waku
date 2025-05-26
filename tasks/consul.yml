@@ -14,6 +14,8 @@
           enr:        '{{ nim_waku_libp2p_enr_uri      | default("unknown") }}'
           multiaddr:  '{{ nim_waku_libp2p_multiaddr    | default("unknown") }}'
           websocket:  '{{ nim_waku_websocket_multiaddr | default("missing") }}'
+          cluster-id: '{{ nim_waku_cluster_id          | default("missing") }}'
+          shards:     '{{ nim_waku_shards              | join(",") | default("missing") }}'
           image:      '{{ nim_waku_cont_image }}'
           commit:     '{{ nim_waku_cont.container.Config.Labels.commit  | default("unknown") }}'
           version:    '{{ nim_waku_cont.container.Config.Labels.version | default("unknown") }}'
