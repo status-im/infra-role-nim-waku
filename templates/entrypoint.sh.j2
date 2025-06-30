@@ -6,6 +6,16 @@
 if test -f {{ nim_waku_rln_keystore_path }}; then
   echo "keystore/keystore.json already exists. Skipping the RLN registration."
 else
+
+  # Mint the token used to pay for RLN Membership registration from Linea Sepolia account (This is a generic ERC20 token used for testnet only):
+  # The amount of "5000000000000000000" is how much is needed to register with a `rln-relay-user-message-limit` of 100
+
+  cast send $TOKEN_CONTRACT_ADDRESS "mint(address,uint256)" $ETH_TESTNET_ACCOUNT 5000000000000000000 --private-key $ETH_TESTNET_KEY --rpc-url $RLN_RELAY_ETH_CLIENT_ADDRESS
+
+  # Approve the RLN contract to spend tokens on behalf of your account:
+
+  cast send $TOKEN_CONTRACT_ADDRESS "approve(address,uint256)" $RLN_RELAY-ETH-CONTRACT-ADDRESS 5000000000000000000 --private-key $ETH_TESTNET_KEY --rpc-url $RLN_RELAY_ETH_CLIENT_ADDRESS
+
   ## Performs the RLN registration if the keystore.json credentials file does not exist
   mkdir -p $(dirname {{ nim_waku_rln_keystore_path }})
   exec /usr/bin/wakunode generateRlnKeystore \
