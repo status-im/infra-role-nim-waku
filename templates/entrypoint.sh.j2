@@ -10,7 +10,7 @@ else
   mkdir -p $(dirname {{ nim_waku_rln_keystore_path }})
   exec /usr/bin/wakunode generateRlnKeystore \
 {% if nim_waku_rln_relay_eth_client_address is string %}
-      --rln-relay-eth-client-address='{{ nim_waku_rln_relay_eth_client_address }}' \
+      --rln-relay-eth-client-address={{ nim_waku_rln_relay_eth_client_address | mandatory }} \
 {% else %}
 {% for address in nim_waku_rln_relay_eth_client_address %}
       --rln-relay-eth-client-address={{ address }} \
