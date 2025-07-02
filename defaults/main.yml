@@ -23,7 +23,7 @@ nim_waku_node_key_file_path: '{{ nim_waku_cont_vol }}/nodekey'
 #nim_waku_cluster_id: 1
 
 # Protocols
-nim_waku_protocols_available: ['relay', 'store', 'filter', 'lightpush', 'rln-relay', 'peer-exchange', 'store-sync']
+nim_waku_protocols_available: ['relay', 'store', 'filter', 'lightpush', 'rln-relay', 'peer-exchange', 'store-sync', 'legacy-store']
 nim_waku_protocols_enabled: ['relay', 'store', 'filter', 'lightpush']
 
 # Topic configuration
