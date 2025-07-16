@@ -63,7 +63,6 @@ nim_waku_p2p_udp_port: 30303
 # P2P Connections
 nim_waku_p2p_max_connections: 150
 nim_waku_max_relay_peers: '{{ nim_waku_p2p_max_connections }}'
-nim_waku_keep_alive: true
 nim_waku_peer_persistence: false
 #nim_waku_ip_colocation_limit: 2
 
