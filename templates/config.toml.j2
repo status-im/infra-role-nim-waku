@@ -15,7 +15,9 @@ log-level = '{{ nim_waku_log_level | upper }}'
 
 ### Network
 peer-persistence = {{ nim_waku_peer_persistence | to_json }}
-keep-alive = {{ nim_waku_keep_alive | to_json }}
+{% if nim_waku_keep_alive %}
+keep-alive = true
+{% endif %}
 max-connections = {{ nim_waku_p2p_max_connections }}
 max-relay-peers = {{ nim_waku_max_relay_peers }}
 {% if nim_waku_max_msg_size is defined %}
