@@ -7,10 +7,11 @@
 - name: 'Extract address of the node for Consul'
   uri:
     url: 'http://localhost:{{ nim_waku_rest_port }}/debug/v1/info'
-    status_code: 200
     body_format: json
   register: waku_info
-  ignore_errors: true
+  until: waku_info.status == 200
+  retries: 3
+  delay: 3
 
 - name: Verify we got the node address
   assert:
