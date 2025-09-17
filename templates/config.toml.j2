@@ -114,5 +114,7 @@ rln-relay-cred-path = '{{ nim_waku_rln_keystore_path }}'
 {% if "store-sync" in nim_waku_protocols_enabled %}
 store-sync-interval = {{ nim_waku_store_sync_interval }}
 store-sync-range = {{ nim_waku_store_sync_range }}
+{% if nim_waku_store_sync_node_addr is defined %}
+storenode = '{{ nim_waku_store_sync_node_addr }}'
 {% endif %}
-
+{% endif %}
