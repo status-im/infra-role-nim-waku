@@ -91,6 +91,7 @@ discv5-bootstrap-node = [
 {% endif %}
 
 {% if "rln-relay" in nim_waku_protocols_enabled %}
+### RLN
 rln-relay-dynamic = {{ nim_waku_rln_relay_dynamic | to_json }}
 rln-relay-tree-path = '{{ nim_waku_rln_relay_tree_path }}'
 {% if nim_waku_rln_relay_dynamic %}
@@ -110,8 +111,8 @@ rln-relay-cred-path = '{{ nim_waku_rln_keystore_path }}'
 {% endif %}
 {% endif %}
 
-
 {% if "store-sync" in nim_waku_protocols_enabled %}
+### Store Sync
 store-sync-interval = {{ nim_waku_store_sync_interval }}
 store-sync-range = {{ nim_waku_store_sync_range }}
 {% if nim_waku_store_sync_node_addr is defined %}
