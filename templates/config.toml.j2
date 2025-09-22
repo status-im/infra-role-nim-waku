@@ -96,15 +96,6 @@ rln-relay-dynamic = {{ nim_waku_rln_relay_dynamic | to_json }}
 rln-relay-tree-path = '{{ nim_waku_rln_relay_tree_path }}'
 {% if nim_waku_rln_relay_dynamic %}
 rln-relay-eth-contract-address = '{{ nim_waku_rln_relay_eth_contract_address }}'
-{% if nim_waku_rln_relay_eth_client_address is string %}
-rln-relay-eth-client-address = '{{ nim_waku_rln_relay_eth_client_address | mandatory }}'
-{% else %}
-rln-relay-eth-client-address = [
-{% for address in nim_waku_rln_relay_eth_client_address %}
-  '{{ address }}'
-{% endfor %}
-]
-{% endif %}
 {% endif %}
 {% if nim_waku_rln_keystore_active %}
 rln-relay-cred-path = '{{ nim_waku_rln_keystore_path }}'

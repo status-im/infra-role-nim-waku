@@ -49,6 +49,15 @@ services:
 {% if nim_waku_rln_keystore_active %}
       --rln-relay-cred-password='{{ nim_waku_rln_cred_password | mandatory }}'
 {% endif %}
+{% if nim_waku_rln_relay_dynamic %}
+{% if nim_waku_rln_relay_eth_client_address is string %}
+      --rln-relay-eth-client-address='{{ nim_waku_rln_relay_eth_client_address | mandatory }}'
+{% else %}
+{% for address in nim_waku_rln_relay_eth_client_address %}
+      --rln-relay-eth-client-address='{{ address }}'
+{% endfor %}
+{% endif %}
+{% endif %}
 
 networks:
   default:
