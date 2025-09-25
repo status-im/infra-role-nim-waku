@@ -93,7 +93,6 @@ discv5-bootstrap-node = [
 {% if "rln-relay" in nim_waku_protocols_enabled %}
 ### RLN
 rln-relay-dynamic = {{ nim_waku_rln_relay_dynamic | to_json }}
-rln-relay-tree-path = '{{ nim_waku_rln_relay_tree_path }}'
 {% if nim_waku_rln_relay_dynamic %}
 rln-relay-eth-contract-address = '{{ nim_waku_rln_relay_eth_contract_address }}'
 {% endif %}
