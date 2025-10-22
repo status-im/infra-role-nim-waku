@@ -13,6 +13,7 @@
           enrtree:    '{{ nim_waku_dns_disc_url        | default("missing") }}'
           enr:        '{{ nim_waku_libp2p_enr_uri      | default("unknown") }}'
           multiaddr:  '{{ nim_waku_libp2p_multiaddr    | default("unknown") }}'
+          mixpubkey:  '{{ nim_waku_libp2p_mixnet_pubkey| default("unknown") }}'
           websocket:  '{{ nim_waku_websocket_multiaddr | default("missing") }}'
           cluster-id: '{{ nim_waku_cluster_id          | default("missing") }}'
           shards:     '{{ nim_waku_shards              | join(",") | default("missing") }}'

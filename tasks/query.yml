@@ -23,6 +23,8 @@
   set_fact:
     nim_waku_libp2p_enr_uri: |-
       {{ waku_info.json.enrUri }}
+    nim_waku_libp2p_mixnet_pubkey: |-
+      {{ waku_info.json.get("mixPubKey", "unknown") }}
     nim_waku_libp2p_multiaddr: |-
       {{ waku_info.json.listenAddresses
       | reject("contains", "/ws") | first }}
