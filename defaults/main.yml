@@ -88,8 +88,9 @@ nim_waku_rln_keystore_path:  '/data/keystore/keystore.json'
 #nim_waku_rln_cred_password: 'ChangeMeIfYouCare'
 
 # Store Sync
-nim_waku_store_sync_interval:  300
-nim_waku_store_sync_range:    3600
+nim_waku_store_sync_interval:     300
+nim_waku_store_sync_range:        3600
+nim_waku_store_sync_relay_jitter: 20
 #nim_waku_store_sync_node_addr: '/dns4/node.example.org/tcp/30303/p2p/16Uiu....'
 
 # metrics are disabled by default
