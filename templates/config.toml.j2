@@ -19,7 +19,7 @@ peer-persistence = {{ nim_waku_peer_persistence | to_json }}
 keep-alive = true
 {% endif %}
 max-connections = {{ nim_waku_p2p_max_connections }}
-max-relay-peers = {{ nim_waku_max_relay_peers }}
+relay-service-ratio = '{{ nim_waku_relay_service_ratio }}'
 {% if nim_waku_max_msg_size is defined %}
 max-msg-size = '{{ nim_waku_max_msg_size }}'
 {% endif %}
