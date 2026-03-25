@@ -21,7 +21,7 @@ else
       --rln-relay-eth-contract-address={{nim_waku_rln_relay_eth_contract_address}} \
       --rln-relay-cred-path='{{ nim_waku_rln_keystore_path }}' \
       --rln-relay-cred-password='{{ nim_waku_rln_cred_password | mandatory }}' \
-      --rln-relay-user-message-limit=100 \
+      --rln-relay-user-message-limit={{ nin_waku_rln_relay_user_mesage_limit }} \
      --execute
 fi
 {% endif %}

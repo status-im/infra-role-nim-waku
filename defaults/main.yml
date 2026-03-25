@@ -76,6 +76,7 @@ nim_waku_store_message_db_url: 'sqlite:///data/store.sqlite3'
 nim_waku_rln_relay_tree_path: '/data/rln_relay_tree'
 nim_waku_rln_relay_dynamic: true
 nim_waku_rln_relay_eth_contract_address: '0xB9cd878C90E49F797B4431fBF4fb333108CB90e6'
+nin_waku_rln_relay_user_mesage_limit: 100
 # TODO: switch to list completele after all nodes are v0.36.0+
 #nim_waku_rln_relay_eth_client_address: 'http://geth.example.org:8545' # < v0.36.0
 #nim_waku_rln_relay_eth_client_address: ['http://geth.example.org:8545'] # >= v0.36.0
