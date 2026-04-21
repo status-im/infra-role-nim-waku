@@ -80,6 +80,8 @@
           node_enode: '{{ nim_waku_websocket_multiaddr }}'
           protocols:  '{{ nim_waku_protocols_enabled | join(",") }}'
           image:      '{{ nim_waku_cont_image }}'
+          cluster-id: '{{ nim_waku_cluster_id          | default("missing") }}'
+          shards:     '{{ nim_waku_shards              | join(",") | default("missing") }}'
           commit:     '{{ nim_waku_cont.container.Config.Labels.commit  | default("unknown") }}'
           version:    '{{ nim_waku_cont.container.Config.Labels.version | default("unknown") }}'
         checks:
