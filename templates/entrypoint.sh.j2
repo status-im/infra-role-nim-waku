@@ -27,4 +27,8 @@ fi
 {% endif %}
 {% endif %}
 
+# v0.39.0 replaced wakunode with logosdeliverynode.
+if test -x /usr/bin/logosdeliverynode; then
+  exec /usr/bin/logosdeliverynode "${@}"
+fi
 exec /usr/bin/wakunode "${@}"
